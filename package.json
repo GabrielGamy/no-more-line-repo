@@ -1,0 +1,26 @@
+{
+  "name": "nomoreline-api",
+  "version": "1.0.0",
+  "description": "A REST API",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "ejs": "2.4.1",
+    "express": "4.13.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GabrielGamy/no-more-line-repo.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": ""
+}
