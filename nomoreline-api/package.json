@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node nomoreline-api/src/index.js"
+    "start": "node src/index.js"
   },
   "dependencies": {
     "ejs": "2.4.1",
