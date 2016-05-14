@@ -1,1 +1,1 @@
-web: node src/index.js
+web: node nomreline-api/src/index.js
