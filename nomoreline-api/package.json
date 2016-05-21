@@ -7,11 +7,20 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/app.js",
+    "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
     "ejs": "2.4.1",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "body-parser": "^1.13.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5",
+    "should": "^8.3.2",
+    "supertest": "^1.2.0"
   },
   "repository": {
     "type": "git",
