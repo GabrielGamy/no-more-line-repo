@@ -11,6 +11,12 @@ module.exports = {
         postal_code: ""
     },
     badCustomer1:{
+
+    },
+    badCustomer2:{
+        last_name:"Gamy"
+    },
+    badCustomer3:{
         last_name:"",
         first_name: "",
         email:"",
@@ -18,11 +24,5 @@ module.exports = {
         phone:"",
         address:"",
         postal_code: ""
-    },
-    badCustomer2:{
-
-    },
-    badCustomer3:{
-        last_name:"Gamy"
-    }                
+    },                   
 };

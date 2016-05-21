@@ -15,18 +15,10 @@ describe("Authentication",function(){
                 .send(mock.badCustomer1)
                 .end(function(err,res){
                     res.status.should.equal(400);
+                    res.body.message.should.equal('Bad request');
                     done();
                 });       
-            });            
-            /**it("Bad Request: a required parameter is missing",function (done) {
-                server
-                .post('/customers')
-                .send(mock.badCustomer2)
-                .end(function(err,res){
-                    res.status.should.equal(400);
-                    done();
-                });       
-            });*/         
+            });                    
         });
         
         describe("Company",function() {

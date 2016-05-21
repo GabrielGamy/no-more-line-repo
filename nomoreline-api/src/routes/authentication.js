@@ -3,19 +3,20 @@
 var express = require('express');
 
 var router = express.Router();
-var app = express();
+var customersValidations = require("../services/customer/validation");
+var util = require("../services/util");
 
 router.route('/customers')
     .post(function (req, res) {
-        console.log(req.body);
-        if(req.body){
-            
+        if(customersValidations.is_a_valid_customer_data(req.body)){
+            res.status(200);
+            res.send("cool");         
         }else{
-            res.status(400);   
-            res.send({"error":"err"}); 
+            res.status(400);
+            var message = "Bad request";
+            var fields = "invalid body";   
+            res.send(util.send_error(res.statusCode,message,fields)); 
         }
-        
-        res.send("cool");
     }
 );
 
