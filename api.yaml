@@ -7,64 +7,30 @@ info:
   version: "1.0"
   title: NoMoreLine REST API
 # during dev, should point to your local machine
-host: api.nomoreline.com
+host: nomoreline-api.herokuapp.com
 # basePath prefixes all resource paths
 basePath: /
 #
 schemes:
   # tip: remove http to make production-grade
-  - http
   - https
 # format of bodies a client can send (Content-Type)
 consumes:
   - application/json
 # format of the responses to the client (Accepts)
 produces:
-  - application/jsonn
+  - application/json
 
 ################################################################################
 #                                  Security                                    #
 ################################################################################
-securityDefinitions:
-  oauth:
-    type: oauth2
-    flow: implicit
-    authorizationUrl: https://......
-    scopes:
-      basic: |
-       empty
-security:
-  - oauth:
-    - basic
+
 
 ################################################################################
-#                                           Paths                              #
+#                                 Paths                                        #
 ################################################################################
 paths:
 
-  /login:
-    post:
-      description: |
-        the login to have acces to the api
-      parameters:
-        - name: email / user_name / company_name
-          in: query
-          description: The unique identifier
-          required: true
-          type: string
-        - name: password
-          in: query
-          description: The password
-          required: true
-          type: string
-      responses:
-        200:
-          description: connexion réussie
-        default:
-          description: Error
-          schema:
-            $ref: '#/definitions/Error'
-            
   /customers:
     post:
       description: |
@@ -72,19 +38,21 @@ paths:
       tags:
         - Customers
       parameters:
-        - name: customer
+        - name: customer 
           in: body
-          description: The customer JSON you want to post
+          description: Make a new customer
           schema:
             $ref: '#/definitions/Customer'
           required: true
       responses:
-        200:
-          description: Make a new customer
+        201:
+          description: Account successfully created
+          schema:
+            $ref: '#/definitions/Response'          
         default:
           description: Error
           schema:
-            $ref: '#/definitions/Error'          
+            $ref: '#/definitions/Response'          
           
   /company:
     post:
@@ -100,13 +68,17 @@ paths:
             $ref: '#/definitions/Company'
           required: true
       responses:
-        200:
+        201:
           description: Make a new company
+          schema:
+            $ref: '#/definitions/Response'          
         default:
           description: Error
           schema:
-            $ref: '#/definitions/Error'  
-
+            $ref: '#/definitions/Response'  
+################################################################################
+#                                 Definitions                                  #
+################################################################################
 definitions:
   Customer:
     type: object
@@ -180,9 +152,14 @@ definitions:
           The company's services or the restaurant menu (pdf or image). Embedded
           content with <iframe> or <embed> tags
       opening_hours:
-        type: array
-        items:
-          $ref: '#/definitions/Schedule'
+        type: object
+        properties:
+          day_of_the_week:
+            type: string
+          opening_time:
+            type: string
+          closing_time:
+            type: string
       phone:
         type: string
       cuisine:
@@ -217,18 +194,17 @@ definitions:
   Reservation:
     type: object
     properties:
+        informations:
+          type: string
         schedule:
-          type: object  
-          
-  Schedule:
-    type: object
-    properties:
-      day_of_the_week:
-        type: string
-      opening_time:
-        type: string
-      closing_time:
-        type: string
+          type: object
+          properties:
+            day:
+              type: string
+            start_time:
+              type: string
+            end_time:
+              type: string
         
   Picture:
     type: object
@@ -236,13 +212,13 @@ definitions:
       url:
         type: string
         
-  Error:
+  Response:
     type: object
     properties:
-      code:
+      status:
         type: integer
         format: int32
       message:
         type: string
-      fields:
-        type: string
+      links:
+        type: object
