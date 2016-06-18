@@ -6,12 +6,13 @@ var router = express.Router();
 var app = express();
 
 var utilApp = require("../services/utilApp");
+var hateoas = require("../services/hateoasLinks").hateoas;
 
 router.route('/')
-    .get(function (req, res) {
+  .get(function (req, res) {
 
-      res.status(200);
-      res.send(utilApp.response(res.statusCode,'WELCOME TO NOMORELINE HATEOAS REST API',{}));
+    res.status(200);
+    res.send(utilApp.response(res.statusCode,'WELCOME TO NOMORELINE HATEOAS REST API', hateoas.link("root",{})));
 });
 
 module.exports = router;

@@ -5,15 +5,15 @@
   "engines": {
     "node": "5.9.1"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node src/server.js",
     "test": "./node_modules/.bin/mocha"
   },
   "dependencies": {
-    "ejs": "2.4.1",
+    "body-parser": "^1.13.2",
     "express": "4.13.3",
-    "body-parser": "^1.13.2"
+    "hateoas": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
