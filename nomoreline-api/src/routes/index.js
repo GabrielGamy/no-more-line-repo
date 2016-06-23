@@ -12,7 +12,7 @@ router.route('/')
   .get(function (req, res) {
 
     res.status(200);
-    res.send(utilApp.response(res.statusCode,'WELCOME TO NOMORELINE HATEOAS REST API', hateoas.link("root",{})));
+    res.send(utilApp.response(true,'WELCOME TO NOMORELINE HATEOAS REST API', hateoas.link("root",{})));
 });
 
 module.exports = router;

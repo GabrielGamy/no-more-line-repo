@@ -8,7 +8,7 @@ var hateoas = require("../services/hateoasLinks").hateoas;
 
 router.route('/customers')
   .post(function (req, res) {
-    res.status(501).send(utilApp.response(res.statusCode,"Not Implemented",hateoas.link("error",{})));
+    res.status(501).send(utilApp.response(false,"Not Implemented",hateoas.link("error",{})));
   }
 );
 

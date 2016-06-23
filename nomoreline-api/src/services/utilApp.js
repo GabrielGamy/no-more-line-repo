@@ -1,8 +1,8 @@
 "use strict";
 
-exports.response = function (status, message, hateoas) {
+exports.response = function (success, message, hateoas) {
   var data = {
-    status: status,
+    success: success,
     message: message,
     hateoas: hateoas 
   };

@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 app.use(function(err, req, res, next){
 	console.log(err.stack);
-	res.status(400).send(utilApp.response(res.statusCode,"Bad request",hateoas.link("error",{})));
+	res.status(400).send(utilApp.response(false,"Bad request",hateoas.link("error",{})));
 });
 
 app.use('/',index);
@@ -25,7 +25,7 @@ app.use('/',authentication);
 
 
 app.use(function(req, res, next){
-	res.status(404).send(utilApp.response(res.statusCode,"Ressource Not Found",hateoas.link("error",{})));
+	res.status(404).send(utilApp.response(false,"Ressource Not Found",hateoas.link("error",{})));
 });
 
 app.listen(app.get('port'), function() {
