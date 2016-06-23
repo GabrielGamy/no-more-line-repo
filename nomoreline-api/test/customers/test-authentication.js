@@ -3,14 +3,16 @@
 var supertest = require("supertest");
 var should = require("should");
 
-var server = supertest.agent("http://localhost:5000");
-var mock = require("./mockObjects");
+var mock = require("./mocks/mock-authentication");
+var serverUrl = require("../../src/services/utilApp").getBaseUrl();
+
+var request = supertest.agent(serverUrl);
 
 describe("Authentication",function(){
     describe("Sign up",function () {
         describe("Customers",function() {
             it("Bad Request: a request body is empty",function (done) {
-                server
+                request
                 .post('/customers')
                 .send(mock.customer_with_empty_body)
                 .end(function(err,res){

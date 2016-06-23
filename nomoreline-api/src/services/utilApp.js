@@ -11,8 +11,8 @@ exports.response = function (success, message, hateoas) {
 
 exports.getBaseUrl = function(){
   if(process.env.NODE_ENV === "production"){
-    return "https://nomoreline-api.herokuapp.com/";
+    return "https://nomoreline-api.herokuapp.com";
   }else{
-    return "http://localhost:5000/";
+    return "http://localhost:5000";
   }
 }

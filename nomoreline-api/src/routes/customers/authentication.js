@@ -3,8 +3,8 @@
 var express = require('express');
 var router = express.Router();
 
-var utilApp = require("../services/utilApp");
-var hateoas = require("../services/hateoasLinks").hateoas;
+var utilApp = require("../../services/utilApp");
+var hateoas = require("../../services/hateoasLinks").hateoas;
 
 router.route('/customers')
   .post(function (req, res) {

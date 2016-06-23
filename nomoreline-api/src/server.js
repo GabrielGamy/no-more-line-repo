@@ -8,7 +8,7 @@ var utilApp = require("./services/utilApp");
 var hateoas = require("./services/hateoasLinks").hateoas;
 
 var index = require('./routes/index');
-var authentication = require('./routes/authentication');
+var customers_authentication = require('./routes/customers/authentication');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -21,7 +21,7 @@ app.use(function(err, req, res, next){
 });
 
 app.use('/',index);
-app.use('/',authentication);
+app.use('/',customers_authentication);
 
 
 app.use(function(req, res, next){
