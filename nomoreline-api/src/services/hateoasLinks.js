@@ -1,7 +1,8 @@
 "use strict";
 
+var envConfig = require("../config/env");
 var utilApp = require("./utilApp");
-var hateoas = require("hateoas")({baseUrl: utilApp.getBaseUrl()});
+var hateoas = require("hateoas")({baseUrl: envConfig.BASE_URL});
 
 // ================
 // error navigation links ======
