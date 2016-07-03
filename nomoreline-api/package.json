@@ -13,7 +13,8 @@
   "dependencies": {
     "body-parser": "^1.13.2",
     "express": "4.13.3",
-    "hateoas": "^1.0.0"
+    "hateoas": "^1.0.0",
+    "mongoose": "^4.5.3"
   },
   "devDependencies": {
     "chai": "^3.5.0",
