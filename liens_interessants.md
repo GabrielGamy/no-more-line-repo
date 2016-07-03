@@ -46,6 +46,7 @@
           1. https://www.youtube.com/watch?v=0iF06y7JnKI
       - Mongoose:
           1. User Authentication: http://www.scotchmedia.com/tutorials/express/authentication/1/01
+          2. Documentation: http://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
 
   7. Authentification
     - Librairie passport qui permet de gérer l'authentification des réseaux sociaux
