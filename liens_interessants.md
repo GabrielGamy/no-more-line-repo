@@ -1,0 +1,70 @@
+ #### Liens interessants :
+  1. Best Practices for Designing a Pragmatic RESTful API:
+      - http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#restful
+      - Tutoriels intéressants:
+        - Build a RESTful API Using Node and Express 4 : 
+          - https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+
+  2. La théorie REST, RESTful et HATEOAS:
+      - https://zestedesavoir.com/tutoriels/299/la-theorie-rest-restful-et-hateoas/
+  
+  3. Tutoriel Angular 2:
+      - https://egghead.io/courses/angular-2-fundamentals
+      - https://www.youtube.com/watch?v=mOD2sGp4V8o&list=PLs_WqGRq69Uh3NBmrSmlXauDMhyt5eifd&index=1
+  
+  4. Tutoriel Ionic 2
+      - http://ionicframework.com/docs/v2/getting-started/installation/
+      - https://www.youtube.com/watch?v=cGuglRvR5lg
+
+  5. Node.js
+      - Tutoriels node.js
+          1. http://book.mixu.net/node/index.html
+          
+      - Tutoriels tests 
+        - Tests unitaires
+            1. https://codeforgeek.com/2015/07/unit-testing-nodejs-application-using-mocha/
+            2. http://www.solutionslibres.org/2011/12/mocha-un-framework-de-test-javascript-couple-a-node-js/
+        - Tests d'interfaces UI
+            1. Selenium: http://www.seleniumhq.org/
+            2. Tuto: http://atatorus.developpez.com/tutoriels/java/test-application-web-avec-selenium/
+            3. Selenium avec node.js: https://www.npmjs.com/package/selenium-webdriver
+      
+      - Librairie intéressante pour gérer les codes asynchrones
+        - http://caolan.org/posts/asynchronous_code_in_node_js/
+  
+  6. MongoDB
+      - Installation:
+        - RobotMongo et MongoLab
+          1. https://www.youtube.com/watch?v=0iF06y7JnKI
+      - Mongoose:
+          1. User Authentication: http://www.scotchmedia.com/tutorials/express/authentication/1/01
+
+  7. Authentification
+    - Librairie passport qui permet de gérer l'authentification des réseaux sociaux
+      - http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/#.V1hYf-YrKgR
+    - Authentification par token
+      - L'avantage d'avoir des tokens
+        - https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication
+      - Utilisation des tokens
+        - https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens
+    
+  8. BOITES A OUTILS
+    - Back-End
+      - http://www.js-attitude.fr/2014/10/23/libs-node-js/
+    - Front-End
+      - http://www.js-attitude.fr/2014/09/22/libs-javascript-front/#underscore
+    - Librairie qui permet de gérer les CallBacks imbriqués
+      - http://caolan.org/posts/asynchronous_code_in_node_js/
+    - Librairie qui permet de créer des maps en JavaScript
+      - http://leafletjs.com
+  
+  9. Challenge et Securité Application
+    - http://www.enigmagroup.org/#
+  
+  10. Javascript
+    - Callback function : Explication et exemple (Video)
+      - https://www.youtube.com/watch?v=pTbSfCT42_M
+    - Tutoriel complet de JavaScript par le navigateur Mozilla
+      - https://developer.mozilla.org/fr/docs/Web/JavaScript
+  11. Outils de communication d'équipe
+    - https://slack.com/
