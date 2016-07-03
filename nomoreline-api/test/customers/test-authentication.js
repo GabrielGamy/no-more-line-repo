@@ -4,7 +4,7 @@ var supertest = require("supertest");
 var should = require("should");
 
 var mock = require("./mocks/mock-authentication");
-var serverUrl = require("../../src/services/utilApp").getBaseUrl();
+var serverUrl = require("../../src/config/env").BASE_URL;
 
 var request = supertest.agent(serverUrl);
 
