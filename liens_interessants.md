@@ -20,6 +20,13 @@
   5. Node.js
       - Tutoriels node.js
           1. http://book.mixu.net/node/index.html
+          2. Vidéos
+              - installation et hello world: https://www.youtube.com/watch?v=DAmfPv4fMUE
+              - créer ses propres modules: https://www.youtube.com/watch?v=B_RDm8DkKGU
+              - créer ses propres modules (suite): https://www.youtube.com/watch?v=pULj7ACuXVA
+              - Créer une API RESTful avec Express, Mongoose: https://www.youtube.com/watch?v=ygq_7kdJVgU
+              - rendre votre code asynchrone: https://www.youtube.com/watch?v=kZZiKr-dBxM
+              - socket.io pour vos communications bi-directionnelles: https://www.youtube.com/watch?v=1rlyvOQ1j-8
           
       - Tutoriels tests 
         - Tests unitaires
