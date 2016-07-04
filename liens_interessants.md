@@ -32,6 +32,7 @@
         - Tests unitaires
             1. https://codeforgeek.com/2015/07/unit-testing-nodejs-application-using-mocha/
             2. http://www.solutionslibres.org/2011/12/mocha-un-framework-de-test-javascript-couple-a-node-js/
+            3. Should.js: http://unitjs.com/guide/should-js.html
         - Tests d'interfaces UI
             1. Selenium: http://www.seleniumhq.org/
             2. Tuto: http://atatorus.developpez.com/tutoriels/java/test-application-web-avec-selenium/
