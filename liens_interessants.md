@@ -76,8 +76,5 @@
       - https://www.youtube.com/watch?v=pTbSfCT42_M
     - Tutoriel complet de JavaScript par le navigateur Mozilla
       - https://developer.mozilla.org/fr/docs/Web/JavaScript
-  11. Outils de communication d'équipe
-    - https://slack.com/
-    - 
-  12. Http 
+  11. Http 
     - CORS: https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS
