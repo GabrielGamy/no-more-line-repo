@@ -1,7 +1,12 @@
+'use strict'
+
+var srcFolder = '../../../src';
+
 var supertest = require("supertest");
 var should = require("should");
 
-var serverUrl = require("../../src/config/env").BASE_URL;
+var mock = require("./mocks/mock-login");
+var serverUrl = require(srcFolder + "/config/env").BASE_URL;
 var request = supertest.agent(serverUrl);
 
 describe("Customers",function(){
@@ -16,5 +21,5 @@ describe("Customers",function(){
                 done();
             });
         });
-    });
+    });   
 });

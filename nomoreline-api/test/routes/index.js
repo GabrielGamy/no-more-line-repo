@@ -1,9 +1,11 @@
 "use strict";
 
+var srcFolder = '../../src';
+
 var supertest = require("supertest");
 var should = require("should");
 
-var serverUrl = require("../src/config/env").BASE_URL;
+var serverUrl = require(srcFolder + "/config/env").BASE_URL;
 
 var request = supertest.agent(serverUrl);
 
