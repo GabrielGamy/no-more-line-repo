@@ -1,23 +1,31 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+var minLen = 8, maxLen = 32;
 
 var Customer = mongoose.model("Customer", new Schema({
     last_name:{
         type: String,
-        required: [true, "The last name is required"]
+        trim: true,
+        required: [true, 'The last name is required'],
+        maxlength: [maxLen,"The last name must be less than " + maxLen + " caracters"]
     },
     first_name:{
         type:String,
-        required: [true, "The first name is required"]   
+        trim: true,
+        required: [true, 'The first name is required'],
+        maxlength: [maxLen,"The first name must be less than " + maxLen + " caracters"]    
     },
     email:{
         type: String, 
         unique: true,
-        required: [true, "The email is required"],
-        match: [/.+[@].+[.].+/,"Invalid email"]
+        trim: true,
+        required: [true, 'The email is required'],
+        maxlength: [maxLen,"The email must be less than " + maxLen + " caracters"],
+        match: [/.+[@].+[.].+/,"Invalid email format"]
     },
     password:{
         type: String,
+        trim: true,
         validate:{
           validator:function(value){
                 return /.*[A-Z].*/.test(value)
@@ -26,22 +34,30 @@ var Customer = mongoose.model("Customer", new Schema({
           },
           message: "Password must contain at least one capital letter, one lowercase letter and one number"  
         },
-        required: [true, "The password is required"],
-        minlength: [8,"Password must be 8 caracters or more"],
-        maxlength: [32,"Password must be less than 32 caracters"]
+        required: [true, 'The Password is required'],
+        minlength: [minLen,"Password must be " + minLen + " caracters or more"],
+        maxlength: [maxLen,"Password must be less than " + maxLen + " caracters"]
     },
     phone:{
         type: String,
+        trim: true,
         validate: {
             validator: function(value) {
                 return /\d{3}-\d{3}-\d{4}/.test(value);
             },
             message: '{VALUE} is not a valid phone number!'
         },        
-        required: [true, "The phone number is required"]
+        required: [true, 'The Phone number is required']
+    },
+    address:{
+        type: String,
+        trim: true,
+        maxlength: [maxLen,"Address must be less than " + maxLen + " caracters"]
     },
     postal_code:{
-        type: String
+        type: String,
+        trim: true,
+        maxlength: [maxLen,"Postal code must be less than " + maxLen + " caracters"]
     },
     company_catalog:{
         type:Array

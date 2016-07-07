@@ -14,36 +14,63 @@ router.get("/login",function(req,res){
     res.send(utilApp.response(true, "Request successfully completed", hateoas.link("customers_login",{})));  
 });
 
-router.post("/signup",function(req,res) {
-
-    /*var customer = new Customer ({
-        last_name: req.body.last_name,
-        first_name: req.body.first_name,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone,
-        address: req.body.address,
-        postal_code: req.body.postal_code                       
-    });
-            
-    customer.save(function (err) {
+router.post("/signup", beforeCreatingUser, function(req, res, next) {
+    
+    var newCustomer = req.newCustomer;
+           
+    newCustomer.save(function (err) {
         if(err){
-            var error_msg = "Something bad happened! Please try again";
+            err.message = "Something bad happened! Please try again";
+            err.status = 400;
             if(err.code == 11000){
-                error_msg = "That email is already taken, please try another" ;
+                err.message = "That email is already taken, please try another" ;
             }
-            
-            res.status(400);
-            util.create_logs(req.body, error_msg, err);
-            res.send(util.send_response(res.statusCode,error_msg,err));                                            
+            next(err); // middleware to catch request error
         }else{
             res.status(201);
-            res.send(util.send_response(res.statusCode,"Account successfully created",""));                            
+            res.send(utilApp.response(true,"Account successfully created", hateoas.link("customers_signup",{})));                            
         }
-    });*/
-        
-    res.status(501);
-    res.send(utilApp.response(false, "Not Implemented", hateoas.link("error",{})));     
+    });    
 });
+
+
+// ================
+// middleware to validate request body before creating an user ======
+// ================
+function beforeCreatingUser (req, res, next){
+
+    var error = new Error("Invalid body for creating a new user");
+
+    if(req.body){
+            
+        var newCustomer = new Customer(req.body);
+
+        newCustomer.validate(function(err){
+            if(err){
+                error.status = 400;
+                error.message = getMissingFields(err.errors);
+                next(error); // middleware to catch request error
+            }else{
+                req.newCustomer = newCustomer;
+                next();
+            }
+        });
+
+    }else{
+        error.status = 400;
+        next(error);
+    }
+}
+
+function getMissingFields(errors){
+    var missingFields = Object.keys(errors);
+    var errorMessages = [];
+
+    missingFields.forEach(function(field){
+        errorMessages.push(errors[field].message);
+    });
+    return errorMessages;
+}
+
 
 module.exports = router;

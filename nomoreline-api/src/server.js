@@ -36,14 +36,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 // ================
-// middleware to catch request error ======
-// ================
-app.use(function(err, req, res, next){
-	console.log(err.stack);
-	res.status(400).send(utilApp.response(false,"Bad request",hateoas.link("error",{})));
-});
-
-// ================
 // api routes ======
 // ================
 app.use('/',index);
@@ -55,6 +47,18 @@ app.use('/customers',customers_login);
 // ================
 app.use(function(req, res, next){
 	res.status(404).send(utilApp.response(false,"Ressource Not Found",hateoas.link("error",{})));
+});
+
+// ================
+// middleware to catch request error ======
+// ================
+app.use(function(err, req, res, next){
+	res.status(err.status || 500);
+    var message = res.statusCode !== 500 ? err.message : "Something bad happened! Please try again";
+    res.send(utilApp.response(false, message, hateoas.link("error",{})));
+    
+    // log only unexpected errors 
+    if(res.statusCode === 500) utilApp.createLogs(message, err.stack, req.body); 
 });
 
 // ================

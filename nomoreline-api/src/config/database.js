@@ -17,12 +17,11 @@ exports.getConnection = function(req, res, next){
     
     mongoose.connect(envConfig.DATABASE_URL, function(err) {
         if (err){
-            console.log("Database connection error : " + JSON.stringify(err, null, 2));
-            
             message = "Service temporarily unavailable. Please try later !";
             res.status(500);
             res.send(utilApp.response(false, message, hateoas.link("error",{})));
 
+            utilApp.createLogs("Database connection error", err, null);
             return;
         }
         console.log(message); // success

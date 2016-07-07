@@ -36,9 +36,10 @@ hateoas.registerLinkHandler("customers_login", function() {
 });
 
 
-hateoas.registerLinkHandler("customers", function(customer) {
+hateoas.registerLinkHandler("customers_signup", function(customer) {
     return {
-        "self": "/customers/" + customer.id
+        "self": "/customers/signup",
+        "customers_signin": "/customers/signin"
     };   
 });
 
