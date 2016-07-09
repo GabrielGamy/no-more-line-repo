@@ -16,6 +16,7 @@
     "colors": "^1.1.2",
     "express": "4.13.3",
     "hateoas": "^1.0.0",
+    "jsonwebtoken": "^7.0.1",
     "mongoose": "^4.5.3"
   },
   "devDependencies": {

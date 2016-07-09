@@ -30,6 +30,6 @@ exports.generateHash = function (value){
     return bcrypt.hashSync(value, salt);
 }
 
-exports.compareHash = function (hash, value){
-    return bcrypt.compareSync(hash, value);
+exports.compareHash = function (value, hash){
+    return bcrypt.compareSync(value, hash);
 }

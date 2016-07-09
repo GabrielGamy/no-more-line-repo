@@ -12,13 +12,23 @@ var request = supertest.agent(serverUrl);
 
 describe("Customers",function(){
     describe("POST /signin",function () {
-        it("Bad Request: a request body is empty",function (done) {
+        it("Error: the body is null",function (done) {
+            request
+            .post('/customers/signin')
+            .send(null)
+            .end(function(err,res){
+                res.status.should.equal(400);
+                res.body.message.should.equal("Email and Password must be provided");
+                done();
+            });       
+        });        
+        it("Error: customer with empty body",function (done) {
             request
             .post('/customers/signin')
             .send(mock.customer_with_empty_body)
             .end(function(err,res){
-                res.status.should.equal(501);
-                res.body.message.should.equal("Not Implemented");
+                res.status.should.equal(400);
+                res.body.message.should.equal("Email and Password must be provided");
                 done();
             });       
         });           
