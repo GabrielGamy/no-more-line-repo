@@ -1,5 +1,7 @@
 "use strict";
 
+var bcrypt = require("bcryptjs");
+
 exports.response = function (success, message, hateoas) {
   var data = {
     success: success,
@@ -21,4 +23,13 @@ exports.createLogs = function (message, error, received_ata) {
 
 exports.arrayContains = function (array, value) {
   return array.indexOf(value) != -1;
+}
+
+exports.generateHash = function (value){
+    var salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(value, salt);
+}
+
+exports.compareHash = function (hash, value){
+    return bcrypt.compareSync(hash, value);
 }

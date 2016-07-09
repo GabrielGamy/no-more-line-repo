@@ -17,6 +17,7 @@ router.get("/login",function(req,res){
 router.post("/signup", beforeCreatingUser, function(req, res, next) {
     
     var newCustomer = req.newCustomer;
+    newCustomer.password = utilApp.generateHash(newCustomer.password);
            
     newCustomer.save(function (err) {
         if(err){

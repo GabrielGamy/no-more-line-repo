@@ -40,7 +40,7 @@ var Customer = mongoose.model("Customer", new Schema({
         },
         required: [true, 'The password is required'],
         minlength: [minLen,"Password must be " + minLen + " caracters or more"],
-        maxlength: [maxLen,"Password must be less than " + maxLen + " caracters"]
+        maxlength: [maxLen * 4,"Password must be less than " + maxLen * 4 + " caracters"] // password will be hashed
     },
     phone:{
         type: String,
