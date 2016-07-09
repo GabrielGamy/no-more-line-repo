@@ -18,3 +18,7 @@ exports.createLogs = function (message, error, received_ata) {
   };
   console.log("Error infos:" + JSON.stringify(result, null , 4));
 }
+
+exports.arrayContains = function (array, value) {
+  return array.indexOf(value) != -1;
+}

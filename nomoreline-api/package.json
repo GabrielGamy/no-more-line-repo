@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "body-parser": "^1.13.2",
+    "colors": "^1.1.2",
     "express": "4.13.3",
     "hateoas": "^1.0.0",
     "mongoose": "^4.5.3"
