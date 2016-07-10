@@ -74,6 +74,14 @@ var Customer = mongoose.model("Customer", new Schema({
     },         
     customer_reservations: { 
         type:Array
+    },
+    dateCreated:{
+        type: Date,
+        default: Date.now
+    }, 
+    endDate:{
+        type: Date,
+        default: null
     }    
 }));
 

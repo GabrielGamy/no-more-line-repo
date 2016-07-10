@@ -29,10 +29,10 @@ describe("Customers",function(){
 
     describe("POST /signup",function(){
         after("After all tests: remove the customer created",function(done){
-            console.log("Attention: Definir le DELETE customer pour supprimer le client et enlever les skip".red);
+            console.log("Attention: Definir le DELETE customer pour supprimer le client".red);
             done();
         });
-        it.skip("Success: customer with valid a body",function(done){
+        it("Success: customer with valid a body",function(done){
             request
             .post('/customers/signup')
             .send(mock.customer_with_valid_a_body)
@@ -230,7 +230,7 @@ describe("Customers",function(){
                 done();
             });
         });         
-        it.skip("Error: customer with email that is already taken",function(done){
+        it("Error: customer with email that is already taken",function(done){
             request
             .post('/customers/signup')
             .send(mock.customer_with_valid_a_body)

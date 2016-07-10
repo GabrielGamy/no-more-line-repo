@@ -4,7 +4,7 @@ module.exports = {
     customer_with_valid_a_body:{
         last_name: "Julio",
         first_name:"Cesar",
-        email: "julioCesar@gmail.com",
+        email: "julioCesarSignup@gmail.com",
         password: "Juliooo1",
         phone: "514-555-5555",
         address:"Addres",

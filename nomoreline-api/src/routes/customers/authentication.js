@@ -33,8 +33,12 @@ router.post('/signin', beforeAuthenticatingUser, function (req, res, next) {
             }
         }
     });
-    //res.send(utilApp.response(false,"Not Implemented",hateoas.link("error",{})));
 }, generateToken);
+
+// Just for test. It must be removed afterward
+router.get("/auth", utilApp.requireValidToken, function(req, res){
+    res.send({success: true, message: "Yeah valid token", decoded: req.decoded});
+});
 
 // ================
 // middleware to validate request body before before authenticating an customer ======
@@ -63,15 +67,16 @@ function generateToken (req, res, next) {
     // if user is found and password is right
     // create a token
     var token = jwt.sign({user_id: req.customer._id}, envConfig.SECRET, {
-        expiresIn: 1440 // expires in 24 minutes
+        expiresIn: 86400 // expires in 24 hours
     });
 
     // return the response including token 
     var message = {
         welcome: 'Welcome ' + req.customer.first_name,
         token: token
-    }    
-    res.send(utilApp.response(true, message , hateoas.link("customers_login",{})));  
+    }
+    res.status(200);    
+    res.send(utilApp.response(true, message , hateoas.link("customers_signin",{_id: req.customer._id})));  
     
 }
 module.exports = router;

@@ -36,13 +36,19 @@ hateoas.registerLinkHandler("customers_login", function() {
 });
 
 
-hateoas.registerLinkHandler("customers_signup", function(customer) {
+hateoas.registerLinkHandler("customers_signup", function() {
     return {
         "self": "/customers/signup",
         "customers_signin": "/customers/signin"
     };   
 });
 
+hateoas.registerLinkHandler("customers_signin", function(customer) {
+    return {
+        "self": "/customers/signin",
+        "customers": "/customers/" + customer._id
+    };   
+});
 // ================
 // companies navigation links ======
 // ================ 

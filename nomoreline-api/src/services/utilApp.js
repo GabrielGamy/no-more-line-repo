@@ -1,6 +1,9 @@
 "use strict";
 
 var bcrypt = require("bcryptjs");
+var jwt = require("jsonwebtoken");
+
+var envConfig = require("../config/env");
 
 exports.response = function (success, message, hateoas) {
   var data = {
@@ -32,4 +35,36 @@ exports.generateHash = function (value){
 
 exports.compareHash = function (value, hash){
     return bcrypt.compareSync(value, hash);
+}
+
+// ================
+// middleware to verify a token
+// ================
+exports.requireValidToken = function (req, res, next) {
+
+    // check header or url parameters or post parameters for token
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    
+    if (token) {
+
+        // verifies secret 
+        jwt.verify(token, envConfig.SECRET, function(err, decoded) {      
+            if (err) {
+                var error = new Error('Failed to authenticate token.');
+                error.status = 400;
+                next(error);                
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;    
+                next();
+            }
+        });
+
+    } else {
+        // if there is no token
+        // return an error
+        var error = new Error('No token provided.');
+        error.status = 403;
+        next(error);
+    }
 }
