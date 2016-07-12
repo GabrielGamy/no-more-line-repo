@@ -78,5 +78,5 @@
       - https://developer.mozilla.org/fr/docs/Web/JavaScript
   11. Http 
     - CORS: https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS
-  12- ElasticSearc
+  12. ElasticSearc
       -  ElasticSearch et Node.js : https://blog.raananweber.com/2015/11/24/simple-autocomplete-with-elasticsearch-and-node-js/
