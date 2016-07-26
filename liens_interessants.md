@@ -81,5 +81,5 @@
   12. ElasticSearc
       -  Concepts de base: http://fr.slideshare.net/dadoonet/elasticsearch-montpellier-jug
       -  ElasticSearch et Node.js : https://blog.raananweber.com/2015/11/24/simple-autocomplete-with-elasticsearch-and-node-js/
-  13- Autres:
+  13. Autres:
       - Rap: http://fr.wikihow.com/%C3%A9crire-du-rap
