@@ -67,6 +67,8 @@
       - http://caolan.org/posts/asynchronous_code_in_node_js/
     - Librairie qui permet de créer des maps en JavaScript
       - http://leafletjs.com
+    - Callbacks vs Promises
+      - https://www.quora.com/Whats-the-difference-between-a-promise-and-a-callback-in-Javascript
   
   9. Challenge et Securité Application
     - http://www.enigmagroup.org/#
