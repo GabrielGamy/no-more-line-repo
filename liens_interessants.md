@@ -69,6 +69,7 @@
       - http://leafletjs.com
     - Callbacks vs Promises
       - https://www.quora.com/Whats-the-difference-between-a-promise-and-a-callback-in-Javascript
+      - https://strongloop.com/strongblog/node-js-callback-hell-promises-generators/
   
   9. Challenge et Securité Application
     - http://www.enigmagroup.org/#
