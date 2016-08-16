@@ -18,8 +18,8 @@ var index = require('./routes/index');
 // ================
 // customers routes ======
 // ================
-var customers_authentication = require('./routes/customers/authentication');
-var customers_login = require('./routes/customers/login');
+var customersAuthentication = require('./routes/customers/authentication');
+var customersLogin = require('./routes/customers/login');
 
 // ================
 // config ======
@@ -39,8 +39,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 // api routes ======
 // ================
 app.use('/',index);
-app.use('/customers',customers_authentication);
-app.use('/customers',customers_login);
+app.use('/customers',customersAuthentication);
+app.use('/customers',customersLogin);
 
 // ================
 // middleware to catch 404 error ======
