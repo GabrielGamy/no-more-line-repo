@@ -19,9 +19,9 @@ var client = new elasticsearch.Client({
 
 // dynamic attribute: https://www.elastic.co/guide/en/elasticsearch/guide/current/dynamic-mapping.html
 // ============
-exports.putMapping = function (indexName, typeName, modelObject, callback){
-
-    indexName = indexName.toLowerCase();
+exports.putMapping = function (typeName, modelObject, callback){
+    
+    var indexName = envConfig.ELASTIC_SEARCH_NODE_NAME.toLowerCase();
     typeName = typeName.toLowerCase();
 
     client.indices.create({
@@ -59,4 +59,45 @@ exports.putMapping = function (indexName, typeName, modelObject, callback){
             }
         } 
     });    
+}
+
+
+// ============
+// url: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-create
+// details : https://www.elastic.co/guide/en/elasticsearch/reference/2.3/docs-index_.html
+// ============
+exports.create = function(typeName, data, callback){
+
+    var indexName = envConfig.ELASTIC_SEARCH_NODE_NAME.toLowerCase();
+
+    client.create({
+        index: indexName,
+        type: typeName,
+        refresh: true,
+        body: data,
+        ignore: [400]
+    }, function (error, response) {
+        if (error) {
+            error.status = 500;
+            callback(error, null);
+        } else {
+
+            if(response.status == 400){
+                var isStrict = (response.error 
+                                && response.error.reason 
+                                && response.error.reason.indexOf("mapping set to strict") != 1);          
+
+                if(isStrict) {
+                    error = new Error("the request body do not respect the mapping");
+                    error.status = 400;
+                    callback(error, null);;
+                }else{
+                    error.status = 500;
+                    callback(error, null);
+                }
+            }else{
+                callback(null, response);
+            }
+        }    
+    });
 }

@@ -6,14 +6,22 @@ var router = express.Router();
 var utilApp = require("../../services/utilApp");
 var hateoas = require("../../services/hateoasLinks").hateoas;
 
+var dbClient = require("../../services/elasticSearch");
+
 router.get("/login",function(req,res){
     res.status(200);
     res.send(utilApp.response(true, "Request successfully completed", hateoas.link("companies_login",{})));  
 });
 
 router.post("/signup", beforeCreatingCompany, function(req, res, next) {
-    res.status(201);
-    res.send(utilApp.response(true,"Account successfully created", hateoas.link("companies_signup",{})));    
+    dbClient.create("company", req.body, function(error, response){
+        if(error){
+            next(error);
+        }else{
+            res.status(201);
+            res.send(utilApp.response(true,"Account successfully created", hateoas.link("companies_signup",{})));    
+        }
+    });
 });
 
 // ================

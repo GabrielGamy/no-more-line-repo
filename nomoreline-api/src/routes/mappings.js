@@ -1,14 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-var putMapping = require("../services/elasticSearch").putMapping;
-var indexName = 'nomoreline_app_node_1';
+var dbClient = require("../services/elasticSearch");
 
 router.post('/companies',function(req, res, next){
-    var typeName = "companies";
     var modelObject = require('../models/company/model').CompanyModel;
 
-    putMapping(indexName, typeName, modelObject, function(error, response){
+    dbClient.putMapping('company', modelObject, function(error, response){
         if(error){
             next(error);
         }else{
