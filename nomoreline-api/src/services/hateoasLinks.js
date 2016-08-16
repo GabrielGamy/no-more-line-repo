@@ -52,6 +52,19 @@ hateoas.registerLinkHandler("customers_signin", function(customer) {
 // ================
 // companies navigation links ======
 // ================ 
+hateoas.registerLinkHandler("companies_login", function() {
+    return {
+        "self": "/companies/login",
+        "companies_signin": "/companies/signin",
+        "companies_signup": "/companies/signup"
+    };
+});
 
+hateoas.registerLinkHandler("companies_signup", function() {
+    return {
+        "self": "/companies/signup",
+        "companies_signin": "/companies/signin"
+    };   
+});
 
 exports.hateoas = hateoas;

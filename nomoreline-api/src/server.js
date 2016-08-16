@@ -22,6 +22,12 @@ var customersAuthentication = require('./routes/customers/authentication');
 var customersLogin = require('./routes/customers/login');
 
 // ================
+// companies routes ======
+// ================
+//var companiesAuthentication = require('./routes/companies/authentication');
+var companiesLogin = require('./routes/companies/login');
+
+// ================
 // config ======
 // ================
 var envConfig = require("./config/env");
@@ -39,8 +45,11 @@ app.use(bodyParser.urlencoded({extended:false}));
 // api routes ======
 // ================
 app.use('/',index);
+
 app.use('/customers',customersAuthentication);
 app.use('/customers',customersLogin);
+
+app.use('/companies',companiesLogin);
 
 // ================
 // middleware to catch 404 error ======
