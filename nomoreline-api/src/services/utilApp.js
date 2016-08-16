@@ -37,6 +37,16 @@ exports.compareHash = function (value, hash){
     return bcrypt.compareSync(value, hash);
 }
 
+exports.getMissingFields = function (errors){
+    var missingFields = Object.keys(errors);
+    var errorMessages = [];
+
+    missingFields.forEach(function(field){
+        errorMessages.push(errors[field].message);
+    });
+    return errorMessages;
+}
+
 // ================
 // middleware to verify a token
 // ================

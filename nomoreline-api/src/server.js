@@ -28,6 +28,11 @@ var customersLogin = require('./routes/customers/login');
 var companiesLogin = require('./routes/companies/login');
 
 // ================
+// admin routes ======
+// ================
+var mappings = require('./routes/mappings');
+
+// ================
 // config ======
 // ================
 var envConfig = require("./config/env");
@@ -51,6 +56,7 @@ app.use('/customers',customersLogin);
 
 app.use('/companies',companiesLogin);
 
+app.use('/mappings', mappings);
 // ================
 // middleware to catch 404 error ======
 // ================

@@ -49,7 +49,7 @@ function beforeCreatingUser (req, res, next){
         newCustomer.validate(function(err){
             if(err){
                 error.status = 400;
-                error.message = getMissingFields(err.errors);
+                error.message = utilApp.getMissingFields(err.errors);
                 next(error); // middleware to catch request error
             }else{
                 req.newCustomer = newCustomer;
@@ -62,16 +62,5 @@ function beforeCreatingUser (req, res, next){
         next(error);
     }
 }
-
-function getMissingFields(errors){
-    var missingFields = Object.keys(errors);
-    var errorMessages = [];
-
-    missingFields.forEach(function(field){
-        errorMessages.push(errors[field].message);
-    });
-    return errorMessages;
-}
-
 
 module.exports = router;

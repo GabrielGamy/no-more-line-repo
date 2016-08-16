@@ -14,6 +14,7 @@
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.13.2",
     "colors": "^1.1.2",
+    "elasticsearch": "^11.0.1",
     "express": "4.13.3",
     "hateoas": "^1.0.0",
     "jsonwebtoken": "^7.0.1",

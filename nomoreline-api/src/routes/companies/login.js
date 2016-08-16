@@ -32,14 +32,4 @@ function beforeCreatingCompany (req, res, next){
     }
 }
 
-function getMissingFields(errors){
-    var missingFields = Object.keys(errors);
-    var errorMessages = [];
-
-    missingFields.forEach(function(field){
-        errorMessages.push(errors[field].message);
-    });
-    return errorMessages;
-}
-
 module.exports = router;
