@@ -48,6 +48,7 @@
       - Mongoose:
           1. User Authentication: http://www.scotchmedia.com/tutorials/express/authentication/1/01
           2. Documentation: http://mongoosejs.com/docs/2.7.x/docs/methods-statics.html
+          3. Validate array in a schema: http://jasonjl.me/blog/2014/10/23/adding-validation-for-embedded-objects-in-mongoose/
 
   7. Authentification
     - Librairie passport qui permet de gérer l'authentification des réseaux sociaux
