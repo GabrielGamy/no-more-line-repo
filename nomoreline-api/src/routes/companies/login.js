@@ -7,6 +7,7 @@ var utilApp = require("../../services/utilApp");
 var hateoas = require("../../services/hateoasLinks").hateoas;
 
 var dbClient = require("../../services/elasticSearch");
+var CompanyValidator = require("../../models/company/validator").CompanyValidator;
 
 router.get("/login",function(req,res){
     res.status(200);
@@ -32,8 +33,17 @@ function beforeCreatingCompany (req, res, next){
     var error = new Error("Invalid body for creating a new company");
 
     if(req.body){
-     
-        next();
+        var newCompany = new CompanyValidator(req.body);
+
+        newCompany.validate(function(err){
+            if(err){
+                error.status = 400;
+                error.message = utilApp.getMissingFields(err.errors);
+                next(error); // middleware to catch request error                
+            }else{
+                next();
+            }
+        });
     }else{
         error.status = 400;
         next(error);
