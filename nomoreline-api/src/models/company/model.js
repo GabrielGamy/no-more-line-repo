@@ -3,7 +3,7 @@
 // ================
 
 exports.CompanyModel = {
-     "name":{
+     "company_name":{
          "type": "String"
      },
      "email":{
@@ -37,17 +37,85 @@ exports.CompanyModel = {
          "type": "String"
      },
     "opening_hours": {
-         "type": "nested",
+         "type": "object",
          "properties":{
-            "day_of_the_week":{
-                "type": "String"
+            "Monday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
             },
-            "opening_time":{
-                "type": "String"
+            "Tuesday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
             },
-            "closing_time":{
-                "type": "String"
-            }            
+            "Wednesday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
+            },
+            "Thursday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
+            },
+            "Friday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
+            },
+            "Saturday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
+            },
+            "Sunday":{
+                "type": "object",
+                "properties": {
+                    "opening_time":{
+                        "type": "String"
+                    },
+                    "closing_time":{
+                        "type": "String"
+                    }                    
+                }             
+            }                                                                                
          }
      },
     "phone":{
@@ -73,6 +141,9 @@ exports.CompanyModel = {
     "pictures":{
          "type": "nested",
          "properties":{
+            "_id":{
+                "type": "String"
+            },             
             "name":{
                 "type": "String"
             },
@@ -90,6 +161,9 @@ exports.CompanyModel = {
     "certifications":{
          "type": "nested",
          "properties":{
+            "_id":{
+                "type": "String"
+            },              
             "title":{
                 "type": "String"
             },
@@ -98,4 +172,10 @@ exports.CompanyModel = {
             }          
          }
      },
+    "isActive":{
+         "type": "Boolean"
+     },
+    "dateCreated":{
+         "type": "Date"
+     }          
 };

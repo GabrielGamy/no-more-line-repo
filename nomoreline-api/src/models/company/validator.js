@@ -13,6 +13,8 @@ var phoneNumberRegExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/; //
 
 var postalCodeRegEXP = /[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]/; // US and CANADA
 
+var openingHoursRegExp =  /([0-9]{2}:[0-9]{2}(PM|pm|AM|am)|NA)/; // NA mean close
+
 var continentValidator = function (continentName){
 
     continentName = continentName.toLowerCase();
@@ -41,7 +43,8 @@ var categoryValidator = function (categoryName){
 // ================
 
 var CompanySchema = new Schema({
-    name:{
+    _id: false,
+    company_name:{
         type: String,
         trim: true,
         required: [true, 'The name of the company is required'],
@@ -115,30 +118,114 @@ var CompanySchema = new Schema({
     short_description:{
         type: String,
         trim: true,
-        maxlength: [maxLen,"The description must be less than " + maxLen + " caracters"]
+        maxlength: [maxLen,"The description must be less than " + maxLen + " caracters"],
+        required:[true, "The short description is required"]
     },
     services:{
         type: String,
         trim: true,
         required: [true, 'The services is required']
     },
-    opening_hours:[{
-        day_of_the_week:{
-            type: String,
-            trim: true,
-            required: [true, "[opening_hours] - The day of the week is required"]
+    opening_hours:{
+        Monday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Monday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Monday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Monday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Monday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
         },
-        opening_time:{
-            type: String,
-            trim: true,
-            required: [true, "[opening_hours] - The opening time is required"]
+        Tuesday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Tuesday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Tuesday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Tuesday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Tuesday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
         },
-        closing_time:{
-            type: String,
-            trim: true,
-            required: [true, "[opening_hours] - The closing time is required"]
-        }                
-    }],
+        Wednesday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Wednesday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Wednesday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Wednesday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Wednesday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
+        },
+        Thursday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Thursday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Thursday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Thursday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Thursday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
+        },
+        Friday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Friday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Friday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Friday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Friday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
+        },
+        Saturday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Saturday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Saturday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Saturday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Saturday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
+        },
+        Sunday:{
+            opening_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Sunday.opening_time] - The opening time is required"],
+                match: [openingHoursRegExp,"[Sunday.opening_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            },
+            closing_time:{
+                type: String,
+                trim: true,
+                required: [true, "[Sunday.closing_time] - The closing time is required"],
+                match: [openingHoursRegExp,"[Sunday.closing_time] - Invalid format. Must be like 12:00PM, 08:00AM or NA when closed"]
+            }             
+        }                                                
+    },
     phone:{
         type: String,
         trim: true,
@@ -156,7 +243,14 @@ var CompanySchema = new Schema({
         maxlength: [maxLen,"Cuisine name must be less than " + maxLen + " caracters"]        
     },
     price:{
-        type: String
+        from:{
+            type: Number,
+            required:[true, "Price.from (minimum price) is required"]
+        },
+        to:{
+            type: Number,
+            required:[true, "Price.to (minimum price) is required"]
+        }        
     },
     chief:{
         type: String,
@@ -164,9 +258,20 @@ var CompanySchema = new Schema({
         required: [true, 'The name of the chief is required'],
         maxlength: [maxLen,"The name of the chief must be less than " + maxLen + " caracters"]
     },
-    pictures:{
-        type: String
-    },
+    pictures:[{
+        name:{
+            type: String,
+            trim: true,
+            maxlength: [maxLen,"[Picture.name] - The name of the picture must be less than " + maxLen + " caracters"],
+            required:[true, "[Picture.name] - The name of the picture is required"]
+        },
+        url:{
+            type: String,
+            trim: true,
+            maxlength: [maxLen,"[Picture.url] - The link of the picture must be less than " + maxLen + " caracters"],
+            required:[true, "[Picture.url] - The link of the picture is required"]
+        }        
+    }],
     notes_for_customers:{
         type: String,
         trim: true,
@@ -177,22 +282,41 @@ var CompanySchema = new Schema({
         trim: true,
         maxlength: [maxLen,"The web site url must be less than " + maxLen + " caracters"]
     },
-    certifications:{
-        type: String
-    }   
+    certifications:[{
+        title:{
+            type: String,
+            trim: true,
+            maxlength: [maxLen,"[Certification.title] - The title of the certification must be less than " + maxLen + " caracters"],
+            required:[true, "[Certification.title] - The title of the certification is required"]
+        },
+        description:{
+            type: String,
+            trim: true,
+            maxlength: [maxLen,"[Certification.description] - The description of the certification must be less than " + maxLen + " caracters"],
+            required:[true, "[Certification.description] - The description of the certification is required"]
+        }        
+    }],
+    isActive:{
+        type: Boolean,
+        required:[true, "isActive is required"],
+        default: true
+    },
+    dateCreated:{
+        type: Date,
+        required:[true, "dateCreated is required"],
+        default: Date.now
+    }       
 });
 
-CompanySchema.path('opening_hours').validate(function(opening_hours){
-    console.log(opening_hours.length);
-    if(!opening_hours){
-        return false
-    }else if(opening_hours.length === 0){
-        return false
-    }
-    return true;
-}, 'The company needs to have at least one opening hour');
+// ================
+// Validate nested objects into the company objects ======
+// ================
+
+CompanySchema.path('pictures').validate(function(pictures){
+
+    return pictures && pictures.length > 0;
+
+}, 'The company needs to have at least one picture');
 
 
-var CompanyValidator = mongoose.model("CompanyValidator", CompanySchema);
-
-exports.CompanyValidator = CompanyValidator;
+exports.CompanyValidator = mongoose.model("CompanyValidator", CompanySchema);

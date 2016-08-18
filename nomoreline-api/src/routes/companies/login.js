@@ -41,6 +41,7 @@ function beforeCreatingCompany (req, res, next){
                 error.message = utilApp.getMissingFields(err.errors);
                 next(error); // middleware to catch request error                
             }else{
+                req.body = newCompany;
                 next();
             }
         });
