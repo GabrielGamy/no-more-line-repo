@@ -3,18 +3,21 @@
 var express = require('express');
 var router = express.Router();
 
-var utilApp = require("../../services/utilApp");
-var hateoas = require("../../services/hateoasLinks").hateoas;
+var srcFolder = "../../";
 
-var dbClient = require("../../services/elasticSearch");
-var CompanyValidator = require("../../models/company/validator").CompanyValidator;
+var utilApp = require(srcFolder + "services/utilApp");
+var hateoas = require(srcFolder + "services/hateoasLinks").hateoas;
+
+var dbClient = require(srcFolder + "services/elasticSearch");
+var CompanyValidator = require(srcFolder + "models/company/validator").CompanyValidator;
+var envConfig = require(srcFolder + "config/env");
 
 router.get("/login",function(req,res){
     res.status(200);
     res.send(utilApp.response(true, "Request successfully completed", hateoas.link("companies_login",{})));  
 });
 
-router.post("/signup", beforeCreatingCompany, function(req, res, next) {
+router.post("/signup", beforeCreatingCompany,isUniqueCompany,function(req, res, next) {
     dbClient.create("company", req.body, function(error, response){
         if(error){
             next(error);
@@ -49,6 +52,51 @@ function beforeCreatingCompany (req, res, next){
         error.status = 400;
         next(error);
     }
+}
+
+
+// ================
+// middleware to verify is the company is unique using the DAO
+// ================
+function isUniqueCompany(req,res,next){
+
+    var data = [
+        // Looking if the company name already exists
+        {index : envConfig.ELASTIC_SEARCH_NODE_NAME, type : "company"},
+        {
+            query :{
+               match_phrase : {
+                   company_name: req.body.company_name 
+               } 
+            }
+        },
+        // Looking if the email is already exists the, {} means we ll search for the query in all indexes 
+        {},  
+        {
+            query:{
+                match_phrase :{
+                    email : req.body.email 
+                }
+            }
+        } 
+        
+    ]
+    dbClient.search(data,function(error,response){
+        if(error){
+            next(error);
+        }else{
+            
+            var total = response.responses[0].hits.total + response.responses[1].hits.total;
+            if(total == 0){
+                next();
+            }else {
+                error = new Error("Company already exists !");
+                error.status = 400;
+                next(error);
+            }         
+       }
+    });
+
 }
 
 module.exports = router;

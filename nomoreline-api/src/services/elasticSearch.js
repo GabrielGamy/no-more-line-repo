@@ -1,3 +1,5 @@
+// Notre  DA0
+
 var envConfig = require("../config/env");
 
 // ============
@@ -71,11 +73,11 @@ exports.create = function(typeName, data, callback){
     var indexName = envConfig.ELASTIC_SEARCH_NODE_NAME.toLowerCase();
 
     client.create({
-        index: indexName,
-        type: typeName,
-        refresh: true,
-        body: data,
-        ignore: [400]
+        index: indexName,   // Bd
+        type: typeName,     // table    
+        refresh: true,      // mettre a jour    
+        body: data,         // les champs de la table ou ligne
+        ignore: [400]       // gestion de l'erreur par nous meme'
     }, function (error, response) {
         if (error) {
             error.status = 500;
@@ -100,4 +102,22 @@ exports.create = function(typeName, data, callback){
             }
         }    
     });
+}
+
+
+// ============
+// url: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-msearch
+// ============
+exports.search = function(data,callback){
+    client.msearch({
+        body: data
+    },function(error,response){
+        if(error){
+            error.status = 500;
+            callback(error,null);
+        }else{
+            callback(null,response);
+        }
+    });    
+
 }
