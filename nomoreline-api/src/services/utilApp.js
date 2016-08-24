@@ -5,6 +5,7 @@ var jwt = require("jsonwebtoken");
 
 var envConfig = require("../config/env");
 
+// create the body for the response object which will send to the client
 exports.response = function (success, message, hateoas) {
   var data = {
     success: success,
