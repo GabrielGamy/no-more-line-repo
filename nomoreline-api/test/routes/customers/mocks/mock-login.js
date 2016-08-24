@@ -4,7 +4,7 @@ module.exports = {
     customer_with_valid_a_body:{
         last_name: "Julio",
         first_name:"Cesar",
-        email: "julioCesarSignup@gmail.com",
+        email: "julioCesarSignup" + Math.random() + "@gmail.com",
         password: "Juliooo1",
         phone: "514-555-5555",
         address:"Addres",
@@ -25,7 +25,7 @@ module.exports = {
     customer_with_fields_that_exceed_the_maximum_length:{
         last_name: "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
         first_name:"GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
-        email: "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+        email: "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
         // password will be hased
         password: "GaGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGaGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGaGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGaGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG1",
         phone: "514-555-5550",

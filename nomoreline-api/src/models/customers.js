@@ -24,7 +24,7 @@ var Customer = mongoose.model("Customer", new Schema({
         unique: true,
         trim: true,
         required: [true, 'The email is required'],
-        maxlength: [maxLen,"The email must be less than " + maxLen + " caracters"],
+        maxlength: [maxLen * 2,"The email must be less than " + maxLen * 2 + " caracters"],
         match: [emailRegExp,"Invalid email format"]
     },
     password:{

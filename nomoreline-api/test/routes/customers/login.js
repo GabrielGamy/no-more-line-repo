@@ -93,7 +93,7 @@ describe("Customers",function(){
                 res.body.success.should.equal(false);
                 utilApp.arrayContains(errors, "The last name must be less than " + maxLen + " caracters").should.equal(true);
                 utilApp.arrayContains(errors, "The first name must be less than " + maxLen + " caracters").should.equal(true);
-                utilApp.arrayContains(errors, "The email must be less than " + maxLen + " caracters").should.equal(true);
+                utilApp.arrayContains(errors, "The email must be less than " + maxLen * 2 + " caracters").should.equal(true);
                 utilApp.arrayContains(errors, "Password must be less than " + maxLen * 4 + " caracters").should.equal(true);
                 utilApp.arrayContains(errors, "Address must be less than " + maxLen + " caracters").should.equal(true);
 
