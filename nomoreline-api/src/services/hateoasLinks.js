@@ -67,4 +67,11 @@ hateoas.registerLinkHandler("companies_signup", function() {
     };   
 });
 
+hateoas.registerLinkHandler("companies_signin", function(company) {
+    return {
+        "self": "/companies/signin",
+        "companies": "/companies/" + company._id
+    };   
+});
+
 exports.hateoas = hateoas;
