@@ -23,4 +23,20 @@ describe("Company Tests",function(){
             });
         });
     });
+    
+    describe("Post/Signup Company",function(){
+        it("Should create a valid company with all required fields",function(done){
+            request
+            .post("/companies/signup")
+            .send(mock.a_valid_company)
+            .end(function(err,res){
+                res.status.should.equal(201);
+                res.body.message.should.equal("Account successfully created");
+                done();
+            });
+        });
+
+        //it()
+    });
+    
 })

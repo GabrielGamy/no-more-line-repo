@@ -2,8 +2,8 @@
 
 module.exports = {
     a_valid_company : {
-        "company_name": "Company 1",
-        "email": "company"+Math.random()+"@domain.com",
+        "company_name": "Borgel Company" + Math.random(),
+        "email": "brealborgel"+ Math.random() +"@domain.com",
         "continent": "America",
         "country": "Canada",
         "city": "Montréal",
