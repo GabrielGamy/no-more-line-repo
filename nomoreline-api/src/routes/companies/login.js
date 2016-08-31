@@ -18,6 +18,7 @@ router.get("/login",function(req,res){
 });
 
 router.post("/signup", beforeCreatingCompany,isUniqueCompany,function(req, res, next) {
+    req.body.password = utilApp.generateHash(req.body.password);
     dbClient.create("company", req.body, function(error, response){
         if(error){
             next(error);

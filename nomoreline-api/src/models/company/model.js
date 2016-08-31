@@ -9,6 +9,9 @@ exports.CompanyModel = {
      "email":{
          "type": "String"
      },
+     "password":{
+         "type": "String"
+     },     
      "continent":{
          "type": "String"
      },

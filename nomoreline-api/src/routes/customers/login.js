@@ -43,7 +43,7 @@ function beforeCreatingUser (req, res, next){
     var error = new Error("Invalid body for creating a new user");
 
     if(req.body){
-            
+        // For creating others default fields the body doesn t have.    
         var newCustomer = new Customer(req.body);
 
         newCustomer.validate(function(err){

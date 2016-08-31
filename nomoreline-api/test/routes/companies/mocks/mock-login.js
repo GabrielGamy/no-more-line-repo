@@ -41,7 +41,7 @@ module.exports = {
             "Sunday":{
                 "opening_time": "NA",
                 "closing_time": "NA"
-            }        
+            }
         },
         "phone": "414-557-0079",
         "cuisine": "Italienne",
@@ -71,8 +71,8 @@ module.exports = {
         "isActive": true,
         "dateCreated": Date()
     },
-    
-    no_fieldsless_company : {
+
+    fieldsless_company : {
 
     },
     company_with_an_empty_value : {
@@ -115,12 +115,12 @@ module.exports = {
             "Sunday":{
                 "opening_time": "",
                 "closing_time": ""
-            }        
+            }
         },
         "phone": "",
         "cuisine": "",
         "price": {
-            
+
         },
         "chief": "Jerome le grand",
         "pictures": [

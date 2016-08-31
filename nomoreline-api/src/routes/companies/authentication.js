@@ -27,19 +27,24 @@ router.post('/signin', beforeAuthenticatingCompany, function (req, res, next) {
             error.status = 500;
             next(error);
         }else{
-            /**
-             * 
-             * Implementer le password pour la compagnie
-             * 
-             */
             var hits = response.responses[0].hits;
             var isFound = hits.total != 0;
+
             if(isFound){
-                req.company = {
-                    _id: hits.hits[0]._id, 
-                    company_name:hits.hits[0]._source.company_name
-                }
-                next();
+
+                var password = hits.hits[0]._source.password;
+
+                if(utilApp.compareHash(req.body.password,password)){
+                    req.company = {
+                        _id: hits.hits[0]._id, 
+                        company_name:hits.hits[0]._source.company_name
+                    }
+                    next();              
+                }else{
+                    var error = new Error("Incorrect email / password");
+                    error.status = 400;
+                    next(error);                
+                }             
             }else{
                 var error = new Error("Incorrect email / password");
                 error.status = 400;

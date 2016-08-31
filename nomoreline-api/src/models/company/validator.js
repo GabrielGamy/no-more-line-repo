@@ -5,7 +5,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var maxLen = 200;
+var minLen = 8, maxLen = 200;
 
 var emailRegExp = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 
@@ -58,6 +58,21 @@ var CompanySchema = new Schema({
         maxlength: [maxLen,"The email must be less than " + maxLen + " caracters"],
         match: [emailRegExp,"Invalid email format"]
     },
+    password:{
+        type: String,
+        trim: true,
+        validate:{
+          validator:function(value){
+                return /.*[A-Z].*/.test(value)
+                    && /.*[a-z].*/.test(value)
+                    && /.*[0-9].*/.test(value);
+          },
+          message: "Password must contain at least one capital letter, one lowercase letter and one number"  
+        },
+        required: [true, 'The password is required'],
+        minlength: [minLen,"Password must be " + minLen + " caracters or more"],
+        maxlength: [maxLen,"Password must be less than " + maxLen + " caracters"] // password will be hashed
+    },    
     continent:{
         type: String,
         trim: true,
