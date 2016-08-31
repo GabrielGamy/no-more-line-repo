@@ -4,6 +4,7 @@ module.exports = {
     a_valid_company : {
         "company_name": "Borgel Company" + Math.random(),
         "email": "brealborgel"+ Math.random() +"@domain.com",
+        "password:":"NomorelinePassword88",
         "continent": "America",
         "country": "Canada",
         "city": "Montréal",
@@ -75,9 +76,11 @@ module.exports = {
     fieldsless_company : {
 
     },
+    
     company_with_an_empty_value : {
         "company_name": "",
         "email": "",
+        "password": "",
         "continent": "",
         "country": "",
         "city": "",
