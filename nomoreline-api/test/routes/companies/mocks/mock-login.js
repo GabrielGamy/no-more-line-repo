@@ -76,7 +76,6 @@ module.exports = {
     fieldsless_company : {
 
     },
-    
     company_with_an_empty_value : {
         "company_name": "",
         "email": "",

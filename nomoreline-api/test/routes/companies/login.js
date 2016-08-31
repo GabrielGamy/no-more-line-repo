@@ -25,7 +25,7 @@ describe("companies",function(){
     });
     
     describe("POST /signup",function(){
-        it("Sucess: Should create a valid company with all required fields",function(done){
+        it.skip("Sucess: Should create a valid company with all required fields",function(done){
             request
             .post("/companies/signup")
             .send(mock.a_valid_company)
@@ -36,7 +36,16 @@ describe("companies",function(){
             });
         });
 
-        //it()
+        it("Error: company with an empty body",function(done){
+            request
+            .post("/companies/signup")
+            .send(mock.fieldsless_company)
+            .end(function(err,res){
+                res.status.should.equal(400);
+                res.body.success.should.equal(false);
+                done();
+            });
+        });
     });
     
 })
