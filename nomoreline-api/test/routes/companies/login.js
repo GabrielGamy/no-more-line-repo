@@ -11,8 +11,8 @@ var utilApp = require(srcFolder + "/services/utilApp");
 var serverUrl = require(srcFolder + "/config/env").BASE_URL;
 var request = supertest.agent(serverUrl);
 
-describe("Company Tests",function(){
-    describe("The Get Companies Login",function(){
+describe("companies",function(){
+    describe("GET /login",function(){
         it("Get the Company login page",function(done){
             request
             .get("/companies/login")
@@ -24,8 +24,8 @@ describe("Company Tests",function(){
         });
     });
     
-    describe("Post/Signup Company",function(){
-        it("Should create a valid company with all required fields",function(done){
+    describe("POST /signup",function(){
+        it("Sucess: Should create a valid company with all required fields",function(done){
             request
             .post("/companies/signup")
             .send(mock.a_valid_company)
