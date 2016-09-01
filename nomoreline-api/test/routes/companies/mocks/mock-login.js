@@ -1,10 +1,12 @@
 "use strict";
 
+var minLen = 8, maxLen = 200; 
+
 module.exports = {
     a_valid_company : {
         "company_name": "Borgel Company" + Math.random(),
         "email": "brealborgel"+ Math.random() +"@domain.com",
-        "password:":"NomorelinePassword88",
+        "password": "NomorelinePassword88",
         "continent": "America",
         "country": "Canada",
         "city": "Montréal",
@@ -76,75 +78,128 @@ module.exports = {
     fieldsless_company : {
 
     },
-    company_with_an_empty_value : {
-        "company_name": "",
-        "email": "",
-        "password": "",
-        "continent": "",
-        "country": "",
-        "city": "",
-        "neighborhood": "",
-        "location": "",
-        "postal_code": "",
-        "category": "",
+    company_with_fields_that_contain_only_spaces : {
+        "company_name": "         ",
+        "email": "         ",
+        "password": "         ",
+        "continent": "         ",
+        "country": "         ",
+        "city": "         ",
+        "neighborhood": "         ",
+        "location": "         ",
+        "postal_code":"         ",
+        "category":"         ",
         "short_description": "  ",
-        "services": "",
+        "services": "         ",
         "opening_hours": {
             "Monday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "         ",
+                "closing_time": "         "
             },
             "Tuesday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "         ",
+                "closing_time":"         "
             },
             "Wednesday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "   ",
+                "closing_time": "   "
             },
             "Thursday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "   ",
+                "closing_time": "   "
             },
             "Friday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "   ",
+                "closing_time": "   "
             },
             "Saturday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "   ",
+                "closing_time": "   "
             },
             "Sunday":{
-                "opening_time": "",
-                "closing_time": ""
+                "opening_time": "   ",
+                "closing_time": "   "
             }
         },
-        "phone": "",
-        "cuisine": "",
-        "price": {
-
+        "phone": "   ",
+        "cuisine": "   ",
+        "price": { },
+        "chief": "   ",
+        "pictures": [],
+        "notes_for_customers": "   ",
+        "web_site_url": "   ",
+        "certifications": [],
+        "isActive": "   ",
+        "dateCreated": "   "
+    },
+    company_with_fields_that_exceed_the_maximum_length : {
+        "company_name": fillerFields(),
+        "email": fillerFields(),
+        "password": fillerFields(),
+        "continent": fillerFields(),
+        "country": fillerFields(),
+        "city": fillerFields(),
+        "neighborhood": fillerFields(),
+        "location": fillerFields(),
+        "postal_code": fillerFields(),
+        "category":fillerFields(),
+        "short_description": fillerFields(),
+        "services": fillerFields(),
+        "opening_hours": {
+            "Monday":{
+                "opening_time": fillerFields(),
+                "closing_time": fillerFields()
+            },
+            "Tuesday":{
+                "opening_time": fillerFields(),
+                "closing_time":fillerFields()
+            },
+            "Wednesday":{
+                "opening_time": fillerFields(),
+                "closing_time": fillerFields()
+            },
+            "Thursday":{
+                "opening_time": fillerFields(),
+                "closing_time": fillerFields()
+            },
+            "Friday":{
+                "opening_time": fillerFields(),
+                "closing_time": fillerFields()
+            },
+            "Saturday":{
+                "opening_time": fillerFields(),
+                "closing_time": fillerFields()
+            },
+            "Sunday":{
+                "opening_time": fillerFields(),
+                "closing_time": fillerFields()
+            }
         },
-        "chief": "Jerome le grand",
+        "phone": fillerFields(),
+        "cuisine": fillerFields(),
+        "price": { },
+        "chief": fillerFields(),
         "pictures": [
             {
-                "name": "",
-                "url": ""
-            },
-            {
-                "name": "",
-                "url": ""
+                "name": fillerFields(),
+                "url": fillerFields()
             }
         ],
-        "notes_for_customers": "",
-        "web_site_url": "",
+        "notes_for_customers": fillerFields(),
+        "web_site_url": fillerFields(),
         "certifications": [
             {
-                "title": "",
-                "description": ""
+                "title": fillerFields(),
+                "description": fillerFields()
             }
         ],
         "isActive": null,
         "dateCreated": null
-
     }
+}
+
+function fillerFields(){
+    var value = "";
+    for(var i = 0; i <= maxLen; ++i) value += "F";
+    return value;
 }

@@ -98,7 +98,8 @@ var CompanySchema = new Schema({
     },
     neighborhood:{
         type: String,
-        trim: true
+        trim: true,
+        maxlength: [maxLen,"The neighborhood must be less than " + maxLen + " caracters"]
     },
     location:{
         type: String,
