@@ -170,6 +170,9 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+                
+                mock.a_valid_company.email = theValidEmail;
+
                 var errors = res.body.message;
 
                 errors.length.should.equal(1);
@@ -177,8 +180,6 @@ describe("Companies",function(){
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal("Invalid email format");
-
-                mock.a_valid_company.email = theValidEmail;
 
                 done();
             });
@@ -191,6 +192,9 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.email = theValidEmail;
+
                 var errors = res.body.message;
 
                 errors.length.should.equal(1);
@@ -198,8 +202,6 @@ describe("Companies",function(){
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal("Invalid email format");
-
-                mock.a_valid_company.email = theValidEmail;
 
                 done();
             });
@@ -213,6 +215,9 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.password = theValidPassword;
+
                 var errors = res.body.message;
 
                 errors.length.should.equal(1);
@@ -220,8 +225,6 @@ describe("Companies",function(){
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal("Password must be " + minLen + " caracters or more");
-
-                mock.a_valid_company.password = theValidPassword;
 
                 done();
             });
@@ -235,6 +238,9 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.password =  theValidPassword;
+
                 var errors = res.body.message;
 
                 errors.length.should.equal(1);
@@ -242,8 +248,6 @@ describe("Companies",function(){
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal("Password must contain at least one capital letter, one lowercase letter and one number");
-
-                mock.a_valid_company.password =  theValidPassword;
 
                 done();
             });
@@ -256,6 +260,9 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.password =  theValidPassword;
+
                 var errors = res.body.message;
 
                 errors.length.should.equal(1);
@@ -263,8 +270,6 @@ describe("Companies",function(){
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal("Password must contain at least one capital letter, one lowercase letter and one number");
-
-                mock.a_valid_company.password =  theValidPassword;
                 
                 done();
             });
@@ -277,6 +282,9 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.password =  theValidPassword;
+
                 var errors = res.body.message;
 
                 errors.length.should.equal(1);
@@ -284,12 +292,52 @@ describe("Companies",function(){
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal("Password must contain at least one capital letter, one lowercase letter and one number");
-
-                mock.a_valid_company.password =  theValidPassword;
                 
                 done();
             });
         });
+        it("Error: the name of the continent is not valid",function(done){
+            var theValidContinent = mock.a_valid_company.continent;
+            mock.a_valid_company.continent = "continent";
+
+            request
+            .post('/companies/signup')
+            .send(mock.a_valid_company)
+            .end(function(err,res){
+
+                mock.a_valid_company.continent =  theValidContinent;
+
+                var errors = res.body.message;
+
+                errors.length.should.equal(1);
+                res.status.should.equal(400);
+                res.body.success.should.equal(false);
+                errors[0].should.equal("continent is not a valid continent!");
+                
+                done();
+            });
+        });
+        it("Error: the name of the category is not valid",function(done){
+            var theValidCategory = mock.a_valid_company.category;
+            mock.a_valid_company.category = "category";
+
+            request
+            .post('/companies/signup')
+            .send(mock.a_valid_company)
+            .end(function(err,res){
+
+                mock.a_valid_company.category =  theValidCategory;
+
+                var errors = res.body.message;
+
+                errors.length.should.equal(1);
+                res.status.should.equal(400);
+                res.body.success.should.equal(false);
+                errors[0].should.equal("category is not a valid category!");
+                
+                done();
+            });
+        });                 
         it("Error: company with invalid phone number format",function(done){
 
             var theValidPhoneNumber = mock.a_valid_company.phone;
@@ -302,13 +350,13 @@ describe("Companies",function(){
                 var errors = res.body.message;
                 var phoneNumber = mock.a_valid_company.phone;
 
+                mock.a_valid_company.phone = theValidPhoneNumber;
+
                 errors.length.should.equal(1);
 
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal(phoneNumber + ' is not a valid phone number!');
-
-                mock.a_valid_company.phone = theValidPhoneNumber;
 
                 done();
             });
@@ -325,17 +373,39 @@ describe("Companies",function(){
                 var errors = res.body.message;
                 var postalCode = mock.a_valid_company.postal_code;
 
+                mock.a_valid_company.postal_code = theValidPostalCode;
+
                 errors.length.should.equal(1);
 
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 errors[0].should.equal(postalCode + ' is not a valid postal code!');
 
-                mock.a_valid_company.postal_code = theValidPostalCode;
+                done();
+            });
+        });
+        it("Error: the title and description of the certification is required",function(done){
+
+            mock.a_valid_company.certifications.push({});
+
+            request
+            .post('/companies/signup')
+            .send(mock.a_valid_company)
+            .end(function(err,res){
+                var errors = res.body.message;
+
+                mock.a_valid_company.certifications = [];
+
+                errors.length.should.equal(2);
+                res.status.should.equal(400);
+                res.body.success.should.equal(false);
+
+                utilApp.arrayContains(errors, "[Certification.title] - The title of the certification is required")
+                utilApp.arrayContains(errors, "[Certification.description] - The description of the certification is required");
 
                 done();
             });
-        });         
+        });                  
         it("Error: company with email that is already taken",function(done){
 
             var theCompanyName = mock.a_valid_company.company_name;
@@ -345,11 +415,12 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.company_name = theCompanyName;
+
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 res.body.message.should.equal("Company already exists !");
-
-                mock.a_valid_company.company_name = theCompanyName;
 
                 done();
             });
@@ -363,11 +434,12 @@ describe("Companies",function(){
             .post('/companies/signup')
             .send(mock.a_valid_company)
             .end(function(err,res){
+
+                mock.a_valid_company.email = theCompanyEmail;
+
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
                 res.body.message.should.equal("Company already exists !");
-
-                mock.a_valid_company.email = theCompanyEmail;
                 
                 done();
             });
