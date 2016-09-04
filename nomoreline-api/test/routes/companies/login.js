@@ -137,25 +137,20 @@ describe("Companies",function(){
             });
         }); 
 
-        it.skip("Error: company with fields that exceed the maximum length",function(done){
+        it("Error: company with fields that exceed the maximum length",function(done){
 
             request
             .post('/companies/signup')
             .send(mock.company_with_fields_that_exceed_the_maximum_length)
             .end(function(err,res){
-                var errors = res.body;
-
-                //errors.length.should.equal(6);
-
-                console.log(errors);
+                var errors = res.body.message;
 
                 res.status.should.equal(400);
                 res.body.success.should.equal(false);
-                //utilApp.arrayContains(errors, "The last name must be less than " + maxLen + " caracters").should.equal(true);
-                //utilApp.arrayContains(errors, "The first name must be less than " + maxLen + " caracters").should.equal(true);
-                //utilApp.arrayContains(errors, "The email must be less than " + maxLen * 2 + " caracters").should.equal(true);
-                //utilApp.arrayContains(errors, "Password must be less than " + maxLen * 4 + " caracters").should.equal(true);
-                //utilApp.arrayContains(errors, "Address must be less than " + maxLen + " caracters").should.equal(true);
+
+                // We can verify more than these two errors below
+                utilApp.arrayContains(errors, "The web site url must be less than " + maxLen + " caracters").should.equal(true);
+                utilApp.arrayContains(errors, "The email must be less than " + maxLen + " caracters").should.equal(true);
 
                 done();
             });

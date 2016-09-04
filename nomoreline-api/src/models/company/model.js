@@ -180,5 +180,16 @@ exports.CompanyModel = {
      },
     "dateCreated":{
          "type": "Date"
-     }          
+     },
+    "company_coordinates": {
+        "type" : "object",
+         "properties":{          
+            "latitude":{
+                "type": "Double"
+            },
+            "longitude":{
+                "type": "Double"
+            }          
+         }        
+    }          
 };

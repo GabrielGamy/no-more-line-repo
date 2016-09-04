@@ -321,7 +321,15 @@ var CompanySchema = new Schema({
         type: Date,
         required:[true, "dateCreated is required"],
         default: Date.now
-    }       
+    },
+    company_coordinates:{
+        latitude:{
+            type: Number
+        },
+        longitude:{
+            type: Number
+        }        
+    } 
 });
 
 // ================

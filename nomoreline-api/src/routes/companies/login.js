@@ -3,6 +3,8 @@
 var express = require('express');
 var router = express.Router();
 
+var geocoder = require('geocoder');
+
 var srcFolder = "../../";
 
 var utilApp = require(srcFolder + "services/utilApp");
@@ -17,16 +19,20 @@ router.get("/login",function(req,res){
     res.send(utilApp.response(true, "Request successfully completed", hateoas.link("companies_login",{})));  
 });
 
-router.post("/signup", beforeCreatingCompany,isUniqueCompany,function(req, res, next) {
-    req.body.password = utilApp.generateHash(req.body.password);
-    dbClient.create("company", req.body, function(error, response){
-        if(error){
-            next(error);
-        }else{
-            res.status(201);
-            res.send(utilApp.response(true,"Account successfully created", hateoas.link("companies_signup",{})));    
-        }
-    });
+router.post("/signup", 
+    beforeCreatingCompany, 
+    isUniqueCompany,
+    getCompanyCoordinates, 
+    function(req, res, next) {
+        req.body.password = utilApp.generateHash(req.body.password);
+        dbClient.create("company", req.body, function(error, response){
+            if(error){
+                next(error);
+            }else{
+                res.status(201);
+                res.send(utilApp.response(true,"Account successfully created", hateoas.link("companies_signup",{})));    
+            }
+        });
 });
 
 // ================
@@ -35,7 +41,7 @@ router.post("/signup", beforeCreatingCompany,isUniqueCompany,function(req, res, 
 function beforeCreatingCompany (req, res, next){
 
     var error = new Error("Invalid body for creating a new company");
-
+    
     if(req.body){
         var newCompany = new CompanyValidator(req.body);
 
@@ -98,6 +104,32 @@ function isUniqueCompany(req,res,next){
        }
     });
 
+}
+
+function getCompanyCoordinates(req, res, next){
+    
+    var addess = req.body.location + ", " + req.body.city + ", " + req.body.postal_code + ", " + req.body.country;
+   
+    geocoder.geocode(addess, function ( err, data ) {
+        
+        if(err){
+            next(err);
+        }else if(data.status === "OK" && data.results.length > 0){
+            
+            var location = data.results[0].geometry.location;
+
+            req.body.company_coordinates = {
+                latitude: location.lat,
+                longitude: location.lng
+            };
+            
+            next();
+        }else {
+            var error = new Error("Unable to get the coordinates. Please verify your address informations !");
+            error.status = 400;
+            next(error);
+        }
+    });    
 }
 
 module.exports = router;
