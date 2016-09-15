@@ -53,6 +53,8 @@
   7. Authentification
     - Librairie passport qui permet de gérer l'authentification des réseaux sociaux
       - http://mherman.org/blog/2015/01/31/local-authentication-with-passport-and-express-4/#.V1hYf-YrKgR
+    - Tutorial plus exemple par jared hanson pour la connexion avec les réseaux sociaux
+      - https://github.com/jaredhanson/passport-facebook
     - Authentification par token
       - L'avantage d'avoir des tokens
         - https://scotch.io/tutorials/the-ins-and-outs-of-token-based-authentication
