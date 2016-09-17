@@ -3,8 +3,8 @@
 module.exports = {
     company_with_empty_body:{},
     company_with_a_valid_body : {
-        "company_name": "Borgel Company" + Math.random(),
-        "email": "brealborgel"+ Math.random() +"@domain.com",
+        "company_name": "Company Signup" + Math.random(),
+        "email": "company_signup"+ Math.random() +"@domain.com",
         "password": "NomorelinePassword88",
         "continent": "America",
         "country": "Canada",

@@ -4,8 +4,8 @@ var minLen = 8, maxLen = 200;
 
 module.exports = {
     a_valid_company : {
-        "company_name": "Borgel Company" + Math.random(),
-        "email": "brealborgel"+ Math.random() +"@domain.com",
+        "company_name": "Company Signup" + Math.random(),
+        "email": "company_signup"+ Math.random() +"@domain.com",
         "password": "NomorelinePassword88",
         "continent": "America",
         "country": "Canada",

@@ -181,15 +181,15 @@ exports.CompanyModel = {
     "dateCreated":{
          "type": "Date"
      },
-    "company_coordinates": {
+    "company_geolocation_infos": {
         "type" : "object",
          "properties":{          
-            "latitude":{
-                "type": "Double"
+            "formatted_address":{
+                "type": "String"
             },
-            "longitude":{
-                "type": "Double"
-            }          
+            "place_id" :{
+                "type": "String"
+            }         
          }        
     }          
 };

@@ -322,12 +322,12 @@ var CompanySchema = new Schema({
         required:[true, "dateCreated is required"],
         default: Date.now
     },
-    company_coordinates:{
-        latitude:{
-            type: Number
+    company_geolocation_infos:{
+        formatted_address:{
+            type: String
         },
-        longitude:{
-            type: Number
+        place_id:{
+            type: String
         }        
     } 
 });

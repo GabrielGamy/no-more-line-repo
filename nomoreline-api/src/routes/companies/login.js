@@ -14,6 +14,8 @@ var dbClient = require(srcFolder + "services/elasticSearch");
 var CompanyValidator = require(srcFolder + "models/company/validator").CompanyValidator;
 var envConfig = require(srcFolder + "config/env");
 
+var googleMapsClient = envConfig.GOOGLE_MAPS_CLIENT;
+
 router.get("/login",function(req,res){
     res.status(200);
     res.send(utilApp.response(true, "Request successfully completed", hateoas.link("companies_login",{})));  
@@ -108,27 +110,32 @@ function isUniqueCompany(req,res,next){
 
 function getCompanyCoordinates(req, res, next){
     
-    var addess = req.body.location + ", " + req.body.city + ", " + req.body.postal_code + ", " + req.body.country;
-   
-    geocoder.geocode(addess, function ( err, data ) {
-        
+    var address = req.body.location + ", " + req.body.city + ", " + req.body.postal_code + ", " + req.body.country;
+    
+    // Geocode an address.
+    googleMapsClient.geocode({
+        address: address
+    }, function(err, response) {
+ 
         if(err){
             next(err);
-        }else if(data.status === "OK" && data.results.length > 0){
-            
-            var location = data.results[0].geometry.location;
-
-            req.body.company_coordinates = {
-                latitude: location.lat,
-                longitude: location.lng
-            };
-            
-            next();
         }else {
-            var error = new Error("Unable to get the coordinates. Please verify your address informations !");
-            error.status = 400;
-            next(error);
-        }
+            var geolocationInformations = response.json || {};
+
+            if(geolocationInformations.status === "OK" && geolocationInformations.results.length > 0){
+                
+                req.body.company_geolocation_infos = {
+                    formatted_address: geolocationInformations.results[0].formatted_address,
+                    place_id: geolocationInformations.results[0].place_id
+                };
+ 
+                next();
+            }else {
+                var error = new Error("Unable to get the coordinates. Please verify your address informations !");
+                error.status = 400;
+                next(error);
+            }    
+        }     
     });    
 }
 
