@@ -20,7 +20,8 @@ hateoas.registerLinkHandler("home", function() {
     return {
         "self": "/",
         "customers_login": "/customers/login",
-        "companies_login": "/companies/login"
+        "companies_login": "/companies/login",
+        "get_all_companies": "/companies"
     };
 });
 
@@ -72,6 +73,69 @@ hateoas.registerLinkHandler("companies_signin", function(company) {
         "self": "/companies/signin",
         "companies": "/companies/" + company._id
     };   
+});
+
+// ================
+// getting companies navigation links ======
+// ================ 
+hateoas.registerLinkHandler("get_all_companies", function() {
+    return {
+        "self": "/companies",
+        
+        "get_restaurants": "/companies?category_name=restaurants",
+
+        "get_shops": "/companies?category_name=shops",
+        
+        "get_barber_shops": "/companies?category_name=barber-shops",
+        
+        "get_special_events": "/companies?category_name=special-events",
+        
+        "get_personal_businesses": "/companies?category_name=personal-businesses",
+        
+        "get_others_type_of_companies": "/companies?category_name=others"
+    };
+});
+
+hateoas.registerLinkHandler("get_restaurants", function() {
+    return {
+        
+        "self": "/companies?category_name=restaurants"
+    };
+});
+
+hateoas.registerLinkHandler("get_shops", function() {
+    return {
+        
+        "self": "/companies?category_name=shops"
+    };
+});
+
+hateoas.registerLinkHandler("get_barber_shops", function() {
+    return {
+        
+        "self": "/companies?category_name=barber-shops"
+    };
+});
+
+hateoas.registerLinkHandler("get_special_events", function() {
+    return {
+        
+        "self": "/companies?category_name=special-events"
+    };
+});
+
+hateoas.registerLinkHandler("get_personal_businesses", function() {
+    return {
+        
+        "self": "/companies?category_name=personal-businesses"
+    };
+});
+
+hateoas.registerLinkHandler("get_others_type_of_companies", function() {
+    return {
+        
+        "self": "/companies?category_name=others"
+    };
 });
 
 exports.hateoas = hateoas;

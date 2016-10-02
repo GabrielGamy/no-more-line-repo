@@ -24,6 +24,7 @@ var customersLogin = require('./routes/customers/login');
 // ================
 // companies routes ======
 // ================
+var companies = require('./routes/companies/companies');
 var companiesAuthentication = require('./routes/companies/authentication');
 var companiesLogin = require('./routes/companies/login');
 
@@ -54,6 +55,7 @@ app.use('/',index);
 app.use('/customers',customersAuthentication);
 app.use('/customers',customersLogin);
 
+app.use("/companies",companies);
 app.use('/companies',companiesAuthentication);
 app.use('/companies',companiesLogin);
 
