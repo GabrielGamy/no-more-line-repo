@@ -115,7 +115,7 @@ function buildSearchBody(req, res, next){
                 }
             }            
         },
-        sort: req.sortBy === "price" ? "price.from:asc" : "company_name:asc",
+        sort: req.sortBy === "price" ? "price.from:asc" : "company_name_not_analyzed_for_sorting:asc",
         from: req._from , 
         size: req._size 
     }

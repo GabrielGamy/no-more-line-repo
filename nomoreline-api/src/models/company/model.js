@@ -4,11 +4,16 @@
 
 exports.CompanyModel = {
      "company_name":{
-         "type": "String"
+         "type": "String",
+         "copy_to": "company_name_not_analyzed_for_sorting"
      },
+     "company_name_not_analyzed_for_sorting":{
+         "type": "String",
+         "index": "not_analyzed"
+     },     
      "email":{
          "type": "String",
-         "index":    "not_analyzed"
+         "index": "not_analyzed"
      },
      "password":{
          "type": "String",

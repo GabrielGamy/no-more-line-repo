@@ -47,9 +47,10 @@ var CompanySchema = new Schema({
     company_name:{
         type: String,
         trim: true,
+        lowercase: true,
         required: [true, 'The name of the company is required'],
         maxlength: [maxLen,"The name of the company must be less than " + maxLen + " caracters"]
-    },
+    },   
     email:{
         type: String, 
         unique: true,
