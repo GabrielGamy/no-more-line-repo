@@ -39,7 +39,7 @@ describe("Companies",function(){
 
                 res.status.should.equal(200);
                 res.body.success.should.equal(true);
-                message.welcome.should.equal('Welcome ' + mock.company_with_a_valid_body.company_name);
+                message.welcome.should.equal('Welcome ' + mock.company_with_a_valid_body.company_name.toLowerCase());
                 message.should.have.property('token');
 
                 done();
