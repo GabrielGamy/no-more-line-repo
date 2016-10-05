@@ -7,10 +7,12 @@ exports.CompanyModel = {
          "type": "String"
      },
      "email":{
-         "type": "String"
+         "type": "String",
+         "index":    "not_analyzed"
      },
      "password":{
-         "type": "String"
+         "type": "String",
+         "index":    "no"
      },     
      "continent":{
          "type": "String"
@@ -31,7 +33,8 @@ exports.CompanyModel = {
          "type": "String"
      },
     "category":{
-         "type": "String"
+         "type": "String",
+         "index":    "not_analyzed"
      },
     "short_description":{
          "type": "String"
@@ -185,10 +188,12 @@ exports.CompanyModel = {
         "type" : "object",
          "properties":{          
             "formatted_address":{
-                "type": "String"
+                "type": "String",
+                "index":    "no"
             },
             "place_id" :{
-                "type": "String"
+                "type": "String",
+                "index":    "no"
             }         
          }        
     }          

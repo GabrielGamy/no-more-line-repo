@@ -106,12 +106,25 @@ exports.create = function(typeName, data, callback){
 
 
 // ============
+// url: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-search
+// ============
+exports.search = function(params,callback){
+    client.search(params,function(error,response){
+        if(error){
+            error.status = 500;
+            callback(error,null);
+        }else{
+            callback(null,response);
+        }
+    });    
+
+}
+
+// ============
 // url: https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-msearch
 // ============
-exports.search = function(data,callback){
-    client.msearch({
-        body: data
-    },function(error,response){
+exports.msearch = function(params,callback){
+    client.msearch(params,function(error,response){
         if(error){
             error.status = 500;
             callback(error,null);

@@ -69,7 +69,7 @@ function beforeCreatingCompany (req, res, next){
 // ================
 function isUniqueCompany(req,res,next){
 
-    var data = [
+    var searchBody = [
         // Looking if the company name already exists
         {index : envConfig.ELASTIC_SEARCH_NODE_NAME, type : "company"},
         {
@@ -90,7 +90,7 @@ function isUniqueCompany(req,res,next){
         } 
         
     ]
-    dbClient.search(data,function(error,response){
+    dbClient.msearch({body: searchBody},function(error,response){
         if(error){
             next(error);
         }else{

@@ -15,13 +15,13 @@ var envConfig = require(srcFolder + "config/env");
 
 router.post('/signin', beforeAuthenticatingCompany, function (req, res, next) {
 
-    var data = [
+    var searchBody = [
         // Looking for the company email
         {index : envConfig.ELASTIC_SEARCH_NODE_NAME, type : "company"},
         {query :{ match_phrase : { email: req.body.email }}},
     ]
     
-    dbClient.search(data, function(err, response){
+    dbClient.msearch({body : searchBody}, function(err, response){
         if(err){
             var error = new Error("Server error");
             error.status = 500;

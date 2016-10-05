@@ -11,7 +11,7 @@ var emailRegExp = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA
 
 var phoneNumberRegExp = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/; // US and CANADA
 
-var postalCodeRegEXP = /[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]/; // US and CANADA
+var postalCodeRegEXP = /^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$/; // US and CANADA
 
 var openingHoursRegExp =  /([0-9]{2}:[0-9]{2}(PM|pm|AM|am)|NA)/; // NA mean close
 
