@@ -199,6 +199,9 @@ exports.CompanyModel = {
             "place_id" :{
                 "type": "String",
                 "index":    "no"
+            },
+            "location":{
+                "type": "geo_point"
             }         
          }        
     }          

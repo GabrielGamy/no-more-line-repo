@@ -11,15 +11,23 @@ var envConfig = require(srcFolder + "config/env");
 
 
 // ================
+// @param: lat_lon_string
+// a lat_lon_string query parameter can be provided: 
+// required when we want to sort by distance according to the user's location
+//
+//      values accepted: the concatenation of latitude and longitute separeted by a comma
+//
+//      default value : "0,0"
+//
 // @param: sort_by
 // a sort_by query parameter can be provided: 
 //
 //      values accepted: 
 //          distance: sort based on the current position of the user, from the nearest to furthest
-//          name: sort by the companies's name, alphabetical order
-//          price: sort based on the offered price. from the smallest to the biggest
+//          name:     sort by the companies's name, alphabetical order
+//          price:    sort based on the offered price. from the smallest to the biggest
 //
-//      default value : distance
+//      default value : name
 //
 // @params: category_name
 // a category_name parameter can also be provided to get the type of companies we want 
@@ -50,8 +58,8 @@ router.get("/", isValidParams, buildSearchBody, function(req, res, next){
         }else{
             var message = {
                 text: "Request executed successfully",
-                sort_by: req.sortBy,
                 category: req.categoryName,
+                sort_by: req.sortBy,
                 pagination:{
                     from: req._from,
                     size: req._size,                    
@@ -62,43 +70,105 @@ router.get("/", isValidParams, buildSearchBody, function(req, res, next){
             var navigation_links = hateoas.link(getCategoryInfos()[req.categoryName].hateoas_link,{});
             res.send(utilApp.response(true, message , navigation_links));
         }
-    });
+    });       
 });
 
 function isValidParams (req, res, next){
+
     var categoryName = req.query.category_name || "all"; // all by default
-    var sortBy = req.query.sort_by || "distance"; // distance by default
-    var _from = req.query._from || 0; // beginning at 0 by default
-    var _size = req.query._size || 10 // return 10 results by default
+    var sortBy = req.query.sort_by || "name"; // sort by name by default
+    var lat_lon_string = req.query.lat_lon_string || "0,0"; // lat = 0 and lon = 0 by default
+    var _from = parseInt(req.query._from) || 0; // beginning at 0 by default
+    var _size = parseInt(req.query._size) || 10; // return 10 results by default
+
+    var isValid = isValidCategory(categoryName) && isValidSortBy(sortBy) &&  _from >= 0 && _size >= 1;
     
-    var isValidCategory = categoryName === "all"   || categoryName === "restaurants"    || 
-                          categoryName === "shops" || categoryName === "special-events" || 
-                          categoryName === "barber-shops" || categoryName === "others"  || 
-                          categoryName === "personal-businesses";
+    if (isValid){
 
-    var isValidSortBy = sortBy === "distance" || sortBy === "name" || sortBy === "price";
+        if(isValidCurrentPosition(sortBy, lat_lon_string)){
 
-    if (isValidCategory && isValidSortBy && _from >= 0 && _size >= 1){
-        req.categoryName = categoryName;
-        req.sortBy = sortBy;
-        req._from = _from;
-        req._size = _size;
-        next();
+            req.categoryName = categoryName;
+            req.sortBy = sortBy;
+            req.currentPosition = getCurrentPosition(lat_lon_string),
+            req._from = _from;
+            req._size = _size;
+            
+            next();            
+
+        }else{
+            var message = {
+                text : "Impossible to sort by distance without a valid current position",
+                missing_parameter:{
+                    lat_lon_string: "the concatenation of latitude and longitute separeted by a comma"
+                }
+            }
+            var err = new Error(); 
+            err.message = message;
+            err.status = 400;
+            next(err);
+        }
+
     }else{
         var message = {
             text : "Invalid parameters",
             accepted_values: {
-                category_name: ["restaurants, shops, special-events, barber-shops, personal-businesses, others"],
-                sort_by: ["distance, name, price"],
+                category_name: "restaurants, shops, special-events, barber-shops, personal-businesses, others",
+                sort_by: "distance, name, price",
                 _from: "_from >= 0",
-                _size: "_size >= 1"
+                _size: "_size >= 1",
+                current_position:["latitude,longitute"]
             }
         }
+        
         var err = new Error(); 
         err.message = message;
         err.status = 400;
+
         next(err);
     }
+}
+
+function isValidCategory(categoryName){
+
+    return categoryName === "all"   || categoryName === "restaurants"    || 
+           categoryName === "shops" || categoryName === "special-events" || 
+           categoryName === "barber-shops" || categoryName === "others"  || 
+           categoryName === "personal-businesses";
+}
+
+function isValidSortBy(sortBy){
+
+   return sortBy === "distance" || 
+          sortBy === "name"     || 
+          sortBy === "price";    
+}
+
+function isValidCurrentPosition(sortBy, lat_lon_string){
+    // we check lat_lon_string parameter only when we want to sort by distance
+    var location = getCurrentPosition(lat_lon_string);
+    return sortBy === "distance" ? Object.keys(location).length == 2 : true;
+}
+
+function getCurrentPosition(lat_lon_string){
+    var location = {};
+    var lat_lon_array = lat_lon_string.split(",");
+
+    if(lat_lon_array && lat_lon_array.length == 2){
+        
+        var lat = parseFloat(lat_lon_array[0]);
+        var lon = parseFloat(lat_lon_array[1]);
+
+        if(!isNaN(lat) && !isNaN(lon) && lat !== 0 && lon !== 0){
+
+            location = {
+                lat: lat,
+                lon: lon
+            }
+            
+        }
+    }
+
+    return location;
 }
 
 function buildSearchBody(req, res, next){
@@ -113,9 +183,9 @@ function buildSearchBody(req, res, next){
                 filtered: {
                     filter: getFilterMacthQuery(req.categoryName)
                 }
-            }            
+            },
+            sort: getSortQuery(req)                      
         },
-        sort: req.sortBy === "price" ? "price.from:asc" : "company_name_not_analyzed_for_sorting:asc",
         from: req._from , 
         size: req._size 
     }
@@ -175,6 +245,43 @@ function getFilterMacthQuery(categoryName){
         }
     } 
     return filterMatchQuery    
+}
+
+function getSortQuery(request){
+    
+    var query;
+
+    if(!request || !request.sortBy) return {};
+
+    switch(request.sortBy){
+
+        case "distance":
+            query = [
+                {
+                    "_geo_distance": {
+                        "company_geolocation_infos.location": {
+                            "lat": request.currentPosition.lat || 0,
+                            "lon": request.currentPosition.lon || 0
+                        },
+                        "order": "asc",
+                        "unit": "km",
+                        "distance_type": "sloppy_arc"
+                    }
+                }
+            ]
+            break;
+        case "price":
+            query = {
+                "price.from": "asc"
+            };
+            break
+        default: // sort by name
+            query = {
+                "company_name_not_analyzed_for_sorting": "asc"
+            };
+            break;
+    }
+    return query;
 }
 
 module.exports = router;

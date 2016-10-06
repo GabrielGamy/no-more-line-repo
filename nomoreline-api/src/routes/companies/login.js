@@ -126,7 +126,11 @@ function getCompanyCoordinates(req, res, next){
                 
                 req.body.company_geolocation_infos = {
                     formatted_address: geolocationInformations.results[0].formatted_address,
-                    place_id: geolocationInformations.results[0].place_id
+                    place_id: geolocationInformations.results[0].place_id,
+                    location: {
+                        lat: geolocationInformations.results[0].geometry.location.lat,
+                        lon: geolocationInformations.results[0].geometry.location.lng
+                    }
                 };
  
                 next();

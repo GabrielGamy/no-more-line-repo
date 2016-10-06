@@ -329,6 +329,10 @@ var CompanySchema = new Schema({
         },
         place_id:{
             type: String
+        },
+        location:{
+            lat: Number,
+            lon: Number
         }        
     } 
 });
