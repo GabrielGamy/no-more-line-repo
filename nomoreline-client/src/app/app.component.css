@@ -1,0 +1,11 @@
+#nomoreline-menu.ui.segment {
+    border-radius: 0;
+}
+
+#nomoreline-menu .ui.menu {
+    border: none;
+}
+
+#nomoreline-app {
+    height: 900px;
+}

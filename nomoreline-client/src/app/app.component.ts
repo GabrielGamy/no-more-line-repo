@@ -11,7 +11,13 @@ export class AppComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log($('h1').offset())
-    console.log($('.ui.dropdown').dropdown())
+    
+    $('.ui.dropdown').dropdown()
+
+    $('#nomoreline-app .ui.sidebar')
+    .sidebar({
+      context: $('#nomoreline-app .bottom.segment')
+    })
+    .sidebar('attach events', '#nomoreline-app .menu .item .content.icon', 'toggle')    
   }
 }
