@@ -1,4 +1,4 @@
-Bienvenue à NomoreLine!
+Bienvenue à NomoreLine **Coding Style** !
 =======================
 
 Conventions
