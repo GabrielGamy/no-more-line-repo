@@ -14,10 +14,20 @@ export class AppComponent implements OnInit {
     
     $('.ui.dropdown').dropdown()
 
-    $('#nomoreline-app .ui.sidebar')
+    $('#nomoreline-app .ui.left.sidebar')
     .sidebar({
+      dimPage: false,
       context: $('#nomoreline-app .bottom.segment')
     })
-    .sidebar('attach events', '#nomoreline-app .menu .item .content.icon', 'toggle')    
+    .sidebar('setting', 'transition', 'overlay')    
+    .sidebar('attach events', '#nomoreline-app .content.icon', 'toggle')
+
+    $('#nomoreline-app .ui.right.sidebar')
+    .sidebar({
+      dimPage: false,
+      context: $('#nomoreline-app .bottom.segment')
+    })
+    .sidebar('setting', 'transition', 'overlay')
+    .sidebar('attach events', '#nomoreline-app .search.icon', 'toggle')         
   }
 }

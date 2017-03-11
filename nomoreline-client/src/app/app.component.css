@@ -1,11 +1,12 @@
-#nomoreline-menu.ui.segment {
-    border-radius: 0;
-}
-
-#nomoreline-menu .ui.menu {
-    border: none;
-}
-
 #nomoreline-app {
     height: 900px;
+}
+
+#nomoreline-app .grouped.fields .field {
+    padding-bottom: 10px;
+}
+
+#nomoreline-app .ui.segment label {
+    display: block;
+    padding-bottom: 5px;
 }
