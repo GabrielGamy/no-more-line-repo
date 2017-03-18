@@ -34,17 +34,14 @@
                 <i class="home icon"></i> Home
             </a>
             <a class="item">
-                <i class="block layout icon"></i> Topics
-            </a>
-            <a class="item">
-                <i class="smile icon"></i> Friends
+                <i class="block layout icon"></i> Settings
             </a>
             <a class="item">
                 <i class="calendar icon"></i> History
             </a>
         </div>
 
-        <div class="ui inverted teal labeled right vertical sidebar menu">
+        <div class="ui inverted teal labeled right vertical sidebar menu" style="padding: 5px;">
             <div class="ui segment">
                 <div class="ui large fluid icon input">
                     <input type="text" placeholder="search">
@@ -121,17 +118,32 @@
 
             <div class="ui segment">
                 <label>Sort by:</label>
-                <div class="teal ui buttons">
-                    <button class="ui button">Name</button>
-                    <button class="ui button">Price</button>
-                    <button class="ui button active">Location</button>
+                <div class="ui middle aligned animated list">
+                    <div class="item link">
+                        <img class="ui avatar image" src="../assets/images/location_32.png">
+                        <div class="content">
+                            <div class="header">Name</div>
+                        </div>
+                    </div>
+                    <div class="item link">
+                        <img class="ui avatar image" src="../assets/images/location_32.png">
+                        <div class="content">
+                            <div class="header">Price</div>
+                        </div>
+                    </div>
+                    <div class="item link">
+                        <img class="ui avatar image" src="../assets/images/location_32.png">
+                        <div class="content">
+                            <div class="header">Location</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="pusher ">
             <div class="ui basic segment ">
-                <h3 class="ui header ">Application Content</h3>
+                <nomoreline-home></nomoreline-home>
             </div>
         </div>
     </div>

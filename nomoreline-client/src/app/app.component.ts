@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'cobalt-root',
+  selector: 'nomoreline-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
