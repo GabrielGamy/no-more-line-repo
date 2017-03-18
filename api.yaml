@@ -1,0 +1,224 @@
+swagger: "2.0"
+
+################################################################################
+#                              API Information                                 #
+################################################################################
+info:
+  version: "1.0"
+  title: NoMoreLine REST API
+# during dev, should point to your local machine
+host: nomoreline-api.herokuapp.com
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+
+################################################################################
+#                                  Security                                    #
+################################################################################
+
+
+################################################################################
+#                                 Paths                                        #
+################################################################################
+paths:
+
+  /customers:
+    post:
+      description: |
+        Create a new `customer`
+      tags:
+        - Customers
+      parameters:
+        - name: customer 
+          in: body
+          description: Make a new customer
+          schema:
+            $ref: '#/definitions/Customer'
+          required: true
+      responses:
+        201:
+          description: Account successfully created
+          schema:
+            $ref: '#/definitions/Response'          
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Response'          
+          
+  /company:
+    post:
+      description: |
+        Create a new `company`
+      tags:
+        - Company
+      parameters:
+        - name: company
+          in: body
+          description: The company JSON you want to post
+          schema:
+            $ref: '#/definitions/Company'
+          required: true
+      responses:
+        201:
+          description: Make a new company
+          schema:
+            $ref: '#/definitions/Response'          
+        default:
+          description: Error
+          schema:
+            $ref: '#/definitions/Response'  
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Customer:
+    type: object
+    properties:
+      last_name:
+        type: string
+      first_name:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      address:
+        type: string
+      postal_code:
+        type: string
+      company_catalog:
+        type: array
+        items:
+          $ref: '#/definitions/Company'
+      customer_reservations:
+        type: array
+        items:
+          $ref: '#/definitions/Reservation'          
+          
+  Company:
+    type: object
+    properties:
+      company_name:
+        type: string
+      email:
+        type: string
+      continent:
+        type: string
+        enum:
+          - Africa
+          - America
+          - Europe
+          - Asia
+          - Oceania
+      country:
+        type: string
+        enum:
+          - Country
+      city:
+        type: string
+        enum:
+          - City
+      neighborhood:
+        type: string
+      location:
+        type: string
+      postal_code:
+        type: string
+      category:
+        type: string
+        enum:
+          - restaurant
+          - shop
+          - special event
+          - barber shop
+          - personal business
+          - others
+      short_description:
+        type: string
+      services:
+        type: string
+        description: >-
+          The company's services or the restaurant menu (pdf or image). Embedded
+          content with <iframe> or <embed> tags
+      opening_hours:
+        type: object
+        properties:
+          day_of_the_week:
+            type: string
+          opening_time:
+            type: string
+          closing_time:
+            type: string
+      phone:
+        type: string
+      cuisine:
+        description: Only for restaurants
+        type: string
+      price:
+        type: string
+        description: price interval (between-and)
+      chief:
+        type: string
+      pictures:
+        description: The company's pictures
+        type: array
+        items:
+          $ref: '#/definitions/Picture'
+      notes_for_customers:
+        type: string
+      web_site_url:
+        type: string
+      certifications:
+        type: string
+        example: '[''Certification 1'', ''Certification 2'']'
+      customer_catalog:
+        type: array
+        items:
+          $ref: '#/definitions/Customer'
+      company_reservations:
+        type: array
+        items:
+          $ref: '#/definitions/Reservation' 
+          
+  Reservation:
+    type: object
+    properties:
+        informations:
+          type: string
+        schedule:
+          type: object
+          properties:
+            day:
+              type: string
+            start_time:
+              type: string
+            end_time:
+              type: string
+        
+  Picture:
+    type: object
+    properties:
+      url:
+        type: string
+        
+  Response:
+    type: object
+    properties:
+      status:
+        type: integer
+        format: int32
+      message:
+        type: string
+      hateoas:
+        type: object

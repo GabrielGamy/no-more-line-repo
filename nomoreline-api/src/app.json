@@ -1,0 +1,8 @@
+{
+  "name": "nomoreline api",
+  "description": "A REST API",
+  "repository": "https://github.com/GabrielGamy/no-more-line-repo.git",
+  "logo": "",
+  "keywords": ["reservation", "nomoreline", "nomoreline-api"],
+  "image": ""
+}

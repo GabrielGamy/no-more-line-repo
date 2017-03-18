@@ -1,0 +1,40 @@
+{
+  "name": "nomoreline-api",
+  "version": "1.0.0",
+  "description": "A REST API",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "./node_modules/.bin/mocha"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.13.2",
+    "colors": "^1.1.2",
+    "elasticsearch": "^11.0.1",
+    "express": "4.13.3",
+    "hateoas": "^1.0.0",
+    "jsonwebtoken": "^7.0.1",
+    "mongoose": "^4.5.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5",
+    "should": "^8.3.2",
+    "supertest": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GabrielGamy/no-more-line-repo.git"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": ""
+}
