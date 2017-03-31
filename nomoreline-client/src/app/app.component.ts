@@ -28,6 +28,6 @@ export class AppComponent implements OnInit {
       context: $('#nomoreline-app .bottom.segment')
     })
     .sidebar('setting', 'transition', 'overlay')
-    .sidebar('attach events', '#nomoreline-app .search.icon', 'toggle')         
+    .sidebar('attach events', '#nomoreline-app .search.icon', 'toggle')
   }
 }
