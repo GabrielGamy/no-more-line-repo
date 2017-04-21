@@ -90,5 +90,5 @@
   13. Autres:
       - Rap: http://fr.wikihow.com/%C3%A9crire-du-rap
   14. Udemy Tutorials (C'est Important de faire ces formations)
-      - gamyyakpaoro@gmail.com (Password: nomoreline2017)
+      - gabrielyakpaoro@gmail.com (Password: nomoreline2017)
       - pouchon87@icloud.com (Password: nomoreline2017)
