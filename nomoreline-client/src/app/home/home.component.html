@@ -1,23 +1,25 @@
-<div class="ui stackable four cards" style="padding-top: 15px;">
-    <div *ngFor="let company of companies" class="ui card">
-        <div class="content">
-            <div class="header">{{company.name}}</div>
-            <div class="meta">
-                <span class="right floated time">ouvert</span>
-                <span class="category">Reataurant</span>
+<div class="ui basic segment ">
+    <div class="ui stackable four cards" style="padding-top: 15px;">
+        <div *ngFor="let company of companies" class="ui card">
+            <div class="content">
+                <div class="header">{{company.name}}</div>
+                <div class="meta">
+                    <span class="right floated time">ouvert</span>
+                    <span class="category">Reataurant</span>
+                </div>
+                <div class="description">
+                    <p>Description / Photo</p>
+                </div>
             </div>
-            <div class="description">
-                <p>Description / Photo</p>
-            </div>
-        </div>
-        <div class="extra content">
-            <div class="right floated author" style="cursor:pointer">
-                <i class="marker large teal link icon"></i> 1km
-            </div>
+            <div class="extra content">
+                <div class="right floated author" style="cursor:pointer">
+                    <i class="marker large teal link icon"></i> 1km
+                </div>
 
-            <div class="left floated author" style="color:#0074D9; cursor:pointer;">
-                Voir les details
+                <div class="left floated author" style="color:#0074D9; cursor:pointer;">
+                    Voir les details
+                </div>
             </div>
-        </div>
-    </div> 
+        </div> 
+    </div>
 </div>

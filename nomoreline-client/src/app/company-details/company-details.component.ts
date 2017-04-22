@@ -10,6 +10,7 @@ export class CompanyDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    $('.autumn.leaf').transition('fly left')
   }
 
 }
