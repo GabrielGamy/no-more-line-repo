@@ -1,3 +1,10 @@
+# Nomoreline Template
+
+Template web site: http://codepassenger.com/html/?product=grape#polar
+Template url: https://themeforest.net/item/polar-responsive-environmental-template/11714065?ref=CodePassenger
+Username: nomoreline
+Password: NomoreLineAngular2017 
+
 # NomorelineClient
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
