@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<!-- TITLE OF SITE -->
+	<title>Menu</title>
+	
+	<!-- Bootstrap v3.3.4 -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- icon fonts Font Awesome 4.3.0 -->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet"> 
+
+	<!-- Import Custom Styles -->
+	<link href="assets/css/style.css" rel="stylesheet"> 
+	
+</head>
+<body class="" style="height: 2000px">
+
+	<div class="main-menu-container transparent-nav fix-top">
+		<div id="main-menu" class="navbar navbar-default" role="navigation">
+			<div class="container">
+
+				<div class="navbar-header">
+					<!-- responsive navigation -->
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<i class="fa fa-bars"></i>
+					</button> <!-- /.navbar-toggle -->
+					<!-- Logo -->
+					<h1 class="logo">
+						<a class="navbar-brand" href="./">
+							<img src="images/logo.png" alt="Polar Logo">
+						</a><!-- /.navbar-brand -->
+					</h1>
+				</div> <!-- /.navbar-header -->
+
+				<nav class="collapse navbar-collapse">
+					<!-- Main navigation -->
+					<ul id="mainNavigation" class="main-mav nav navbar-nav pull-right">
+						<li class="has-sub-menu"><a class="active" href="#page-top">Home</a>
+							<ul class="sub-menu">
+								<li><a href="index1.html">Home 1 </a></li> 
+								<li><a href="index2.html">Home 2</a></li> 
+								<li><a href="index3.html">Home 3</a></li> 
+								<li><a href="index-onepage-v1.html">One Page 1</a></li> 
+								<li><a href="index-onepage-v2.html">One Page 2</a></li> 
+							</ul>
+						</li>
+						<li><a href="#contents">Project View</a></li>
+						<li><a class="not-in-home" href="about.html">About</a></li>
+						<li><a class="not-in-home" href="event-page.html">Event</a></li> 
+						<li><a class="not-in-home" href="gallery.html">Gallery</a></li>  
+						<li class="has-sub-menu"><a class="not-in-home" href="news-page.html">News</a>
+							<ul class="sub-menu">
+								<li><a href="blog-page.html">Blog Page</a></li> 
+								<li><a href="single.html">Signle Page</a></li>
+								<li class="has-sub-menu"><a href="#">Sub Menu</a>
+									<ul class="sub-menu">
+										<li><a href="#">Demo Item 1</a></li>
+										<li><a href="#">Demo Item 2</a></li>
+										<li><a href="#">Demo Item 3</a></li>
+									</ul>
+								</li>  
+							</ul>
+						</li>
+						<li><a class="not-in-home" href="contact.html">Contact</a></li> 
+						<li><a class="donate green" href="donate.html">Donate Now</a></li>     
+					</ul> <!-- /#mainNavigation -->
+				</nav> <!-- /.navbar-collapse  -->
+			</div> <!-- /.container -->
+		</div><!-- /#main-menu -->
+	</div><!-- /.main-menu-container -->
+	<!-- Main Menu End -->
+
+	<!-- Include jquery.min.js plugin -->
+	<script src="assets/js/jquery-2.1.0.min.js"></script>
+	<script src="assets/js/custom.js"></script>
+
+	<script>
+	(function($) {
+		"use strict";
+		
+	        $(window).on("load",function(e){
+	        	// Main menu
+	        	$('#main-menu #mainNavigation').onePageNav({
+	        		currentClass: 'active',
+	        		changeHash: false,
+	        		scrollSpeed: 750,
+	        		scrollThreshold: 0.5,
+	        		scrollOffset: 84,
+	        		filter: ':not(.sub-menu a, .not-in-home, .donate)',
+	        		easing: 'swing'
+	        	});  
+	        });
+		$(window).on('scroll', function (){ 
+			if ($(window).scrollTop() >$(window).height()-110){
+				$('#main-menu').addClass('navbar-fixed-top'); 
+			} else {
+				$('#main-menu').removeClass('navbar-fixed-top'); 
+			} 
+		});
+	 })(jQuery);
+	</script>
+
+</body>
+</html>

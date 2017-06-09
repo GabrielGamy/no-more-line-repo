@@ -1,3 +1,15 @@
 #nomoreline-company-details {
+<<<<<<< HEAD
 
 }
+=======
+    margin: 0;
+    border-radius: 0;
+    opacity: 0.8;
+    height: 900px;
+}
+
+#nomoreline-company-details .img-banniere {
+    height: 250px;
+}
+>>>>>>> ba9259478727985360d141b700305eb8cf95b900
