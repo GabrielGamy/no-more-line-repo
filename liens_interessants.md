@@ -92,3 +92,6 @@
   14. Udemy Tutorials (C'est Important de faire ces formations)
       - gabrielyakpaoro@gmail.com (Password: nomoreline2017)
       - pouchon87@icloud.com (Password: nomoreline2017)
+  15. Tutorails NodeJs and TypeScript (Async and Wait)
+      - http://brianflove.com/
+      - http://anthonychu.ca/post/node-async-await-azure-app-service/
