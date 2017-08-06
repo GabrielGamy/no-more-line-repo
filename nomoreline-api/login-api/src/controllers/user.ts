@@ -34,20 +34,26 @@ export let postLogin = (req: Request, res: Response, next: NextFunction) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    req.flash("errors", errors);
-    return res.redirect("/login");
+    return next({status: 400, errors: errors});
   }
 
   passport.authenticate("local", (err: Error, user: UserModel, info: LocalStrategyInfo) => {
-    if (err) { return next(err); }
+    if (err) { return next({status: 500, errors: err}); }
+
     if (!user) {
-      req.flash("errors", info.message);
-      return res.redirect("/login");
+      return next({
+        status: 400, 
+        errors:{ msg: info.message }
+      });      
     }
+
     req.logIn(user, (err) => {
-      if (err) { return next(err); }
-      req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(req.session.returnTo || "/");
+      if (err) { return next({status: 500, errors: err});  }
+
+      return res.json({
+        status: 200, 
+        response: { msg: "Success! You are logged in." }
+      });      
     });
   })(req, res, next);
 };
@@ -108,10 +114,14 @@ export let postSignup = (req: Request, res: Response, next: NextFunction) => {
     user.save((err) => {
       if (err) { return next({status: 500, errors: err}); }
 
-      return res.json({
-        status: 200, 
-        response: { msg: "User succesfully created." }
-      });
+      req.logIn(user, (err) => {
+        if (err) { return next({status: 500, errors: err});  }
+
+        return res.json({
+          status: 200, 
+          response: { msg: "User succesfully created." }
+        });    
+      });      
     });
   });
 };
