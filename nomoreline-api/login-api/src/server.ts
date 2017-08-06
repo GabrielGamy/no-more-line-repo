@@ -140,8 +140,9 @@ app.get("/auth/facebook/callback", passport.authenticate("facebook", { failureRe
 /**
  * Error Handler. Provides full stack - remove for production
  */
-app.use(errorHandler());
-
+app.use((err:Error, req:express.Request, res:express.Response, next:express.NextFunction) => {
+  res.json(err);
+});
 /**
  * Start Express server.
  */

@@ -87,8 +87,7 @@ export let postSignup = (req: Request, res: Response, next: NextFunction) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    req.flash("errors", errors);
-    return res.redirect("/signup");
+    return next({status: 400, errors: errors});
   }
 
   const user = new User({
@@ -97,18 +96,21 @@ export let postSignup = (req: Request, res: Response, next: NextFunction) => {
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) { return next(err); }
+    if (err) { return next({status: 500, errors: err}); }
+
     if (existingUser) {
-      req.flash("errors", { msg: "Account with that email address already exists." });
-      return res.redirect("/signup");
+      return next({
+        status: 400, 
+        errors:{ msg: "Account with that email address already exists." }
+      });
     }
+
     user.save((err) => {
-      if (err) { return next(err); }
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        res.redirect("/");
+      if (err) { return next({status: 500, errors: err}); }
+
+      return res.json({
+        status: 200, 
+        response: { msg: "User succesfully created." }
       });
     });
   });
