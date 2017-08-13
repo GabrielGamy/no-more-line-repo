@@ -234,17 +234,17 @@ export let getOauthUnlink = (req: Request, res: Response, next: NextFunction) =>
  * Reset Password page.
  */
 export let getReset = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isAuthenticated()) {
-    return res.redirect("/");
-  }
   User
     .findOne({ passwordResetToken: req.params.token })
     .where("passwordResetExpires").gt(Date.now())
     .exec((err, user) => {
-      if (err) { return next(err); }
+      if (err) { return next({status: 500, errors: err}); }
+
       if (!user) {
-        req.flash("errors", { msg: "Password reset token is invalid or has expired." });
-        return res.redirect("/forgot");
+        return next({
+          status: 400, 
+          errors: { msg: "Password reset token is invalid or has expired." }
+        });
       }
       res.render("account/reset", {
         title: "Password Reset"
@@ -263,8 +263,7 @@ export let postReset = (req: Request, res: Response, next: NextFunction) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    req.flash("errors", errors);
-    return res.redirect("back");
+    return next({status: 400, errors: errors});
   }
 
   async.waterfall([
@@ -273,16 +272,22 @@ export let postReset = (req: Request, res: Response, next: NextFunction) => {
         .findOne({ passwordResetToken: req.params.token })
         .where("passwordResetExpires").gt(Date.now())
         .exec((err, user: any) => {
-          if (err) { return next(err); }
+          if (err) { return next({status: 500, errors: err}); }
+
           if (!user) {
-            req.flash("errors", { msg: "Password reset token is invalid or has expired." });
-            return res.redirect("back");
+            return next({
+              status: 400, 
+              errors: { msg: "Password reset token is invalid or has expired." }
+            });
           }
+
           user.password = req.body.password;
           user.passwordResetToken = undefined;
           user.passwordResetExpires = undefined;
+
           user.save((err: WriteError) => {
-            if (err) { return next(err); }
+            if (err) { return next({status: 500, errors: err}); }
+
             req.logIn(user, (err) => {
               done(err, user);
             });
@@ -291,26 +296,29 @@ export let postReset = (req: Request, res: Response, next: NextFunction) => {
     },
     function sendResetPasswordEmail(user: UserModel, done: Function) {
       const transporter = nodemailer.createTransport({
-        service: "SendGrid",
+        service: "Gmail",
         auth: {
-          user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD
+          user: process.env.NOMORELINE_EMAIL_USER,
+          pass: process.env.NOMORELINE_EMAIL_PWD
         }
       });
       const mailOptions = {
         to: user.email,
-        from: "express-ts@starter.com",
+        from: process.env.NOMORELINE_EMAIL_USER,
         subject: "Your password has been changed",
         text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed.\n`
       };
       transporter.sendMail(mailOptions, (err) => {
-        req.flash("success", { msg: "Success! Your password has been changed." });
         done(err);
       });
     }
   ], (err) => {
-    if (err) { return next(err); }
-    res.redirect("/");
+    if (err) { return next({status: 500, errors: err}); }
+    
+    return next({
+      status: 200, 
+      errors: { msg: "Success! Your password has been changed." }
+    });    
   });
 };
 
@@ -338,8 +346,7 @@ export let postForgot = (req: Request, res: Response, next: NextFunction) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    req.flash("errors", errors);
-    return res.redirect("/forgot");
+    return next({status: 400, errors: errors});
   }
 
   async.waterfall([
@@ -353,8 +360,10 @@ export let postForgot = (req: Request, res: Response, next: NextFunction) => {
       User.findOne({ email: req.body.email }, (err, user: any) => {
         if (err) { return done(err); }
         if (!user) {
-          req.flash("errors", { msg: "Account with that email address does not exist." });
-          return res.redirect("/forgot");
+          return next({
+            status: 400, 
+            errors: { msg: "Account with that email address does not exist." }
+          });
         }
         user.passwordResetToken = token;
         user.passwordResetExpires = Date.now() + 3600000; // 1 hour
@@ -365,15 +374,15 @@ export let postForgot = (req: Request, res: Response, next: NextFunction) => {
     },
     function sendForgotPasswordEmail(token: AuthToken, user: UserModel, done: Function) {
       const transporter = nodemailer.createTransport({
-        service: "SendGrid",
+        service: "Gmail",
         auth: {
-          user: process.env.SENDGRID_USER,
-          pass: process.env.SENDGRID_PASSWORD
+          user: process.env.NOMORELINE_EMAIL_USER,
+          pass:process.env.NOMORELINE_EMAIL_PWD
         }
       });
       const mailOptions = {
         to: user.email,
-        from: "hackathon@starter.com",
+        from: process.env.NOMORELINE_EMAIL_USER,
         subject: "Reset your password on Hackathon Starter",
         text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
           Please click on the following link, or paste this into your browser to complete the process:\n\n
@@ -381,12 +390,14 @@ export let postForgot = (req: Request, res: Response, next: NextFunction) => {
           If you did not request this, please ignore this email and your password will remain unchanged.\n`
       };
       transporter.sendMail(mailOptions, (err) => {
-        req.flash("info", { msg: `An e-mail has been sent to ${user.email} with further instructions.` });
         done(err);
       });
     }
   ], (err) => {
-    if (err) { return next(err); }
-    res.redirect("/forgot");
+    if (err) { return next({status: 500, errors: err}); }
+    return next({
+      status: 200, 
+      errors: { msg: "An e-mail has been sent to your email address with further instructions." }
+    });
   });
 };
